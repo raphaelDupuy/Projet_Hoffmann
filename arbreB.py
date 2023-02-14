@@ -4,7 +4,7 @@ class ArbreB:
         self.content = ([fg, fd], père)
 
     def __add__(self, arb):
-
+        pass
 
     # Getter fils gauche, retourne le fils gauche d'un arbreB
     def get_fg(self):
