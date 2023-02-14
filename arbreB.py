@@ -12,3 +12,7 @@ class ArbreB:
         except ValueError:
             pass
 
+    def find(self, sommet):
+        
+        raise NotImplementedError
+    
