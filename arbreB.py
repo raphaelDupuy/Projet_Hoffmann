@@ -1,6 +1,6 @@
 class ArbreB:
     
-    def __init__(self, fg, fd, père):
+    def __init__(self, fg, fd, père, sommet):
         self.content = ([fg, fd], père)
 
     def __add__(self, arb):
@@ -13,6 +13,12 @@ class ArbreB:
     # # Getter de l'attribut 'fils droit'
     def get_fd(self):
         return self.content[0][1]
+    
+    def get_père(self):
+        return self.père
+    
+    def get_sommet(self):
+        return self.sommet
 
     # Insère un sommet avec un tag dans l'arbreB
     def instert(self, sommet):
