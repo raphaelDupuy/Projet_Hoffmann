@@ -1,18 +1,28 @@
 class ArbreB:
     
-    def __init__(self, fg, fd, père, sommet):
-        self.content = ([fg, fd], père)
+    def __init__(self, fg, fd, sommet, tag=None, père=None):
+        self.content = (fg, fd)
+        self.père = père
+        self.sommet = sommet
+        self.tag = tag
 
     def __add__(self, arb):
         pass
+    
+    # Getter de l'attribut 'sommet'
+    def get_sommet(self):
+        return self.sommet
 
-    # # Getter de l'attribut 'fils droit'
+    # Getter de l'attribut 'fils droit'
     def get_fg(self):
-        return self.content[0][0]
+        return self.content[0]
 
-    # # Getter de l'attribut 'fils droit'
+    # Getter de l'attribut 'fils droit'
     def get_fd(self):
-        return self.content[0][1]
+        return self.content[1]
+
+    def get_tag(self):
+        return self.tag
     
     def get_père(self):
         return self.père

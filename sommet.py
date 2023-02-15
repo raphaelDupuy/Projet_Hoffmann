@@ -2,7 +2,7 @@ class Sommet:
 
     def __init__(self, occur, tag=None):
         self.tag = tag
-        self.nb = occur
+        self.occur = occur
 
     # Permet de changer le tag d'un sommet
     def retag(self, new):
