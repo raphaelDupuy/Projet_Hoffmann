@@ -6,26 +6,26 @@ class ArbreB:
     def __add__(self, arb):
         pass
 
-    # Getter fils gauche, retourne le fils gauche d'un arbreB
+    # # Getter de l'attribut 'fils droit'
     def get_fg(self):
         return self.content[0][0]
 
-    # Getter fils droit, retourne le fils droit d'un arbreB
+    # # Getter de l'attribut 'fils droit'
     def get_fd(self):
         return self.content[0][1]
 
-    # Insère un sommet avec un tag dans un arbreB
+    # Insère un sommet avec un tag dans l'arbreB
     def instert(self, sommet):
         pass
 
-    # Supprime un sommet dans un arbreB
+    # Supprime un sommet de l'arbreB
     def suppr(self, sommet):
         try:
             self.content.remove(sommet)
         except ValueError:
             pass
 
-    # Trouve un charractère dans un arbreB
+    # Trouve un charractère dans l'arbreB
     def find(self, char):
 
         fg = self.get_fg()
