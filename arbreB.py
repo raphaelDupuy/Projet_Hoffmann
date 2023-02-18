@@ -1,6 +1,6 @@
 class ArbreB:
     
-    def __init__(self, fg, fd, sommet, tag=None, père=None):
+    def __init__(self, fg, fd, sommet = None, tag=None, père=None):
         self.content = (fg, fd)
         self.père = père
         self.sommet = sommet

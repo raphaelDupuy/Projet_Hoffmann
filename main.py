@@ -2,7 +2,7 @@ from sommet import Sommet
 from arbreB import ArbreB
 
 total = 0
-arbre = []
+
 
 # Prend en entrée un fichier texte et retourne une liste de sommets correspondant 
 # aux charactères dans le fichier
@@ -14,15 +14,14 @@ def extract(file):
             for letter in line:
                 low_letter = letter.lower()
                 if low_letter not in data.keys():
-                    data[letter] = 1
+                    data[low_letter] = 1
                 else:
-                    data[letter] += 1
+                    data[low_letter] += 1
                 total += 1
 
     classes = []
     for key, value in data.items():
         classes.append(Sommet(value, tag=key))
-        arbre.append(Sommet(value, tag=key))
     return classes
 
 
@@ -49,36 +48,47 @@ def analyse(file):
 
 
 def getKey(element):
+    """indique a la fonction sort() sur quel paramètres elle doit trier la liste"""
     return element[1][0]
 
 
 def buil_tree(list_sommet):
+    """ prends en entré une liste de sommets et crèe un arbre avec,
+      les  2 sommets dont l'occurence est la plus faible"""
     global joli_arbre
     list_sommet = sorted(list_sommet, key=getKey)
     fg = (list_sommet[0][1][1])
     fd = (list_sommet[1][1][1])
-    joli_arbre = ArbreB(fd,fg,Sommet(fg.get_occur() + fd.get_occur() ))
-    list_sommet.append((joli_arbre.get_tag(),(joli_arbre.get_sommet().get_occur(),joli_arbre.get_sommet())))
+    joli_arbre = ArbreB(fd,fg)
+    if isinstance(fg, ArbreB):
+        fg = fg.get_sommet()
+    if isinstance(fd, ArbreB):
+        fd = fd.get_sommet()
+    joli_arbre.sommet = Sommet((fg.get_occur() + fd.get_occur() ))
+    list_sommet.append((joli_arbre.get_tag(),(joli_arbre.get_sommet().get_occur(),joli_arbre)))
     del(list_sommet[:2])
+
     if len(list_sommet) != 1:
         buil_tree(list_sommet)
 
 
-def unravell(arbre):
+def unravell(arbre,n):
     fg = arbre.get_fg()
     fg_tag = fg.get_tag()
     fd = arbre.get_fd()
     fd_tag = fd.get_tag()
 
     if fg_tag == None:
-        unravell(fg)
+        print(n*" ",(fg.get_sommet().get_occur(),fg_tag))
+        unravell(fg,n+5)
     else:
-        print(fg_tag)
+        print(n*" " ,(fg_tag,fg.get_occur()))
     
     if fd_tag == None:
-        unravell(fd)
+        print(n*" ",(fd.get_sommet().get_occur(),fd_tag))
+        unravell(fd,n+5)
     else:
-        print(fd_tag)
+        print(n*" " , (fd_tag,fd.get_occur()))
 
 
 
@@ -88,7 +98,7 @@ joli_arbre = ArbreB
 l = analyse("texte.txt")
 buil_tree(l)
 print(joli_arbre.get_fd())
-#unravell(joli_arbre)
+unravell(joli_arbre,3)
 
 
 
