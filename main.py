@@ -72,23 +72,25 @@ def buil_tree(list_sommet):
         buil_tree(list_sommet)
 
 
-def unravell(arbre,n):
+def unravell(arbre,n,chemin = ""):
     fg = arbre.get_fg()
     fg_tag = fg.get_tag()
     fd = arbre.get_fd()
     fd_tag = fd.get_tag()
 
     if fg_tag == None:
+        chemin += "0"
         print(n*" ",(fg.get_sommet().get_occur(),fg_tag))
-        unravell(fg,n+5)
+        unravell(fg,n+5,chemin)
     else:
-        print(n*" " ,(fg_tag,fg.get_occur()))
+        print(n*" " ,(fg_tag,fg.get_occur()),chemin + "0")
     
     if fd_tag == None:
+        chemin += "1"
         print(n*" ",(fd.get_sommet().get_occur(),fd_tag))
-        unravell(fd,n+5)
+        unravell(fd,n+5,chemin)
     else:
-        print(n*" " , (fd_tag,fd.get_occur()))
+        print(n*" " , (fd_tag,fd.get_occur()), chemin +"1")
 
 
 
@@ -97,8 +99,8 @@ def unravell(arbre,n):
 joli_arbre = ArbreB
 l = analyse("texte.txt")
 buil_tree(l)
-print(joli_arbre.get_fd())
-unravell(joli_arbre,3)
+# unravell(joli_arbre,3)
+print(ArbreB.__mro__)
 
 
 
