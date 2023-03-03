@@ -108,16 +108,14 @@ def unravell(arbre,n,chemin = ""):
     fd_tag = fd.get_tag()
 
     if fg_tag == None:
-        chemin += "0"
         print(n*" ",(fg.get_sommet().get_occur(),fg_tag))
-        unravell(fg,n+5,chemin)
+        unravell(fg,n+5,chemin+ "0")
     else:
         print(n*" " ,(fg_tag,fg.get_occur()),chemin + "0")
     
     if fd_tag == None:
-        chemin += "1"
         print(n*" ",(fd.get_sommet().get_occur(),fd_tag))
-        unravell(fd,n+5,chemin)
+        unravell(fd,n+5,chemin +"1")
     else:
         print(n*" " , (fd_tag,fd.get_occur()), chemin +"1")
 
@@ -127,6 +125,7 @@ def unravell(arbre,n,chemin = ""):
 
 joli_arbre = analyse("texte.txt")
 joli_arbre = call_tree(joli_arbre)
+print(joli_arbre.get_fd())
 unravell(joli_arbre,3)
 
 
