@@ -29,14 +29,9 @@ def extract(file):
 # à analyser et retourne un dictionnaire avec le char en clé et son pourcentage en value
 def percentage(data):
     global total
-    percentages = {}
     for sommet in data:
-        tag, nb = sommet.get_tag(), sommet.get_occur()
-        percent = (nb / total) * 100
-        percentages[tag] = (round(percent, 2),sommet)
-        sommet.occur = round(percent,2)
-    return list(percentages.items())
-
+        sommet.occur = round((sommet.get_occur()/total)*100,2)
+    return data
 
 def tree(data):
     pass
@@ -49,7 +44,7 @@ def analyse(file):
 
 def getKey(element):
     """indique a la fonction sort() sur quel paramètres elle doit trier la liste"""
-    return element[1][0]
+    return element.get_occur()
 
 
 arbre = None
@@ -78,20 +73,12 @@ def build_tree(list_sommet):
     global arbre
 
     if len(list_sommet) > 1:
-        small = list_sommet[1]
+        list_sommet = sorted(list_sommet, key=getKey)
+        small = list_sommet[0]
         small_occur = small.get_occur()
 
-        smaller = list_sommet[0]
+        smaller = list_sommet[1]
         smaller_occur = smaller.get_occur()
-
-        for sommet in list_sommet[2:]:
-            occur = sommet.get_occur()
-
-            if occur < smaller_occur:
-                smaller = sommet
-
-            elif occur < small_occur:
-                small = sommet
 
         sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(small_occur + smaller_occur))
         list_sommet.append(sous_arbre)
@@ -138,11 +125,10 @@ def unravell(arbre,n,chemin = ""):
 
 # six = ArbreB(f, c, Sommet(f.get_occur() + c.get_occur()))
 
-joli_arbre = ArbreB
-l = analyse("texte.txt")
-build_tree(l)
-# unravell(joli_arbre,3)
-print(ArbreB.__mro__)
+joli_arbre = analyse("texte.txt")
+joli_arbre = call_tree(joli_arbre)
+unravell(joli_arbre,3)
+
 
 
 
