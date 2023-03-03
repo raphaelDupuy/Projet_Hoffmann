@@ -70,34 +70,28 @@ def build_tree(list_sommet):
 
     """version 2 recursif test"""
     """prend en entrée une liste non triée de sommets"""
-    global arbre
-
     if len(list_sommet) > 1:
-        list_sommet = sorted(list_sommet, key=getKey)
-        small = list_sommet[0]
+        small = list_sommet[1]
         small_occur = small.get_occur()
 
-        smaller = list_sommet[1]
+        smaller = list_sommet[0]
         smaller_occur = smaller.get_occur()
+
+        for sommet in list_sommet[2:]:
+            occur = sommet.get_occur()
+
+            if occur < smaller_occur:
+                smaller = sommet
+
+            elif occur < small_occur:
+                small = sommet
 
         sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(small_occur + smaller_occur))
         list_sommet.append(sous_arbre)
-        build_tree(list_sommet)
+        return build_tree(list_sommet)
 
     else:
-        arbre = list_sommet[0]
-        pass
-
-    # impossible de return list_sommet[0] directement
-    # solution temporaire de remplacement qui utilise une var globale pour
-    # le stocker puis le return (call_tree())
-
-
-def call_tree(list_sommet):
-    build_tree(list_sommet)
-    return arbre
-        
-         
+        return list_sommet[0]        
 
 
 
@@ -124,7 +118,7 @@ def unravell(arbre,n,chemin = ""):
 # six = ArbreB(f, c, Sommet(f.get_occur() + c.get_occur()))
 
 joli_arbre = analyse("texte.txt")
-joli_arbre = call_tree(joli_arbre)
+joli_arbre = build_tree(joli_arbre)
 print(joli_arbre.get_fd())
 unravell(joli_arbre,3)
 

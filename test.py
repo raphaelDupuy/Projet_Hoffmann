@@ -12,10 +12,7 @@ t = Sommet(5, "t")
 
 data = [c, e, f, sp, i, o, t]
 
-arbre = 1
-
 def build_tree(list_sommet):
-    global arbre
     if len(list_sommet) > 1:
         small = list_sommet[1]
         small_occur = small.get_occur()
@@ -34,15 +31,10 @@ def build_tree(list_sommet):
 
         sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(small_occur + smaller_occur))
         list_sommet.append(sous_arbre)
-        build_tree(list_sommet)
+        return build_tree(list_sommet)
 
     else:
-        arbre = list_sommet[0]
-        pass
+        return list_sommet[0]
 
-
-def call_tree(list_sommet):
-    build_tree(list_sommet)
-    return arbre
     
-print(call_tree(data))
+print(build_tree(data))
