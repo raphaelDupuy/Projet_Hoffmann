@@ -1,10 +1,10 @@
 class ArbreB:
     
-    def __init__(self, fg, fd, sommet = None, tag=None, père=None):
+    def __init__(self, fg, fd, sommet,  père=None):
         self.content = (fg, fd)
         self.père = père
         self.sommet = sommet
-        self.tag = tag
+        self.tag = sommet.get_tag()
 
     def __add__(self, arb):
         pass

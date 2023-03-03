@@ -7,7 +7,6 @@ class Sommet:
     # Permet de changer le tag d'un sommet
     def retag(self, new):
         self.tag = new
-
     
     def get_chemin(self):
         raise NotImplementedError
