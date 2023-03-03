@@ -1,6 +1,6 @@
 class ArbreB:
     
-    def __init__(self, fg, fd, sommet,  père=None):
+    def __init__(self, fg, fd, sommet=None,  père=None):
         self.content = (fg, fd)
         self.père = père
         self.sommet = sommet
@@ -8,6 +8,9 @@ class ArbreB:
 
     def __add__(self, arb):
         pass
+
+    def get_occur(self):
+        return self.sommet.get_occur()
     
     # Getter de l'attribut 'sommet'
     def get_sommet(self):
