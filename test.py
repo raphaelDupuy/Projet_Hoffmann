@@ -1,7 +1,3 @@
-
-
-
-
 from arbreB import ArbreB
 from sommet import Sommet
 
