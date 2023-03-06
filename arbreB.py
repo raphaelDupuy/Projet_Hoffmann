@@ -7,8 +7,12 @@ class ArbreB:
         self.tag = sommet.get_tag()
 
     def __add__(self, arb):
-        pass
-
+        fg = self.fg
+        while type(fg) == ArbreB:
+            fg = fg.get_fg()
+        noeud = ArbreB(arb, fg)
+        fg = noeud
+        
     def get_occur(self):
         return self.sommet.get_occur()
     
