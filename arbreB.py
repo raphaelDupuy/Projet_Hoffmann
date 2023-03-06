@@ -1,3 +1,4 @@
+from sommet import Sommet
 class ArbreB:
     
     def __init__(self, fg, fd, sommet=None,  père=None):
@@ -7,12 +8,13 @@ class ArbreB:
         self.tag = sommet.get_tag()
 
     def __add__(self, arb):
-        fg = self.fg
+        fg = self.get_fg()
         while type(fg) == ArbreB:
             fg = fg.get_fg()
-        noeud = ArbreB(arb, fg)
+        noeud = ArbreB(arb, fg, Sommet(arb.get_occur() + fg.get_occur()))
         fg = noeud
-        
+        return self
+
     def get_occur(self):
         return self.sommet.get_occur()
     

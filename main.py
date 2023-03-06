@@ -119,17 +119,5 @@ def unravell(arbre,n,chemin = ""):
 
 joli_arbre = analyse("texte.txt")
 joli_arbre = build_tree(joli_arbre)
-print(joli_arbre.get_fd())
 unravell(joli_arbre,3)
-
-
-
-
-
-
-
-
-
-
-
 
