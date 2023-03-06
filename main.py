@@ -29,14 +29,9 @@ def extract(file):
 # à analyser et retourne un dictionnaire avec le char en clé et son pourcentage en value
 def percentage(data):
     global total
-    percentages = {}
     for sommet in data:
-        tag, nb = sommet.get_tag(), sommet.get_occur()
-        percent = (nb / total) * 100
-        percentages[tag] = (round(percent, 2),sommet)
-        sommet.occur = round(percent,2)
-    return list(percentages.items())
-
+        sommet.occur = round((sommet.get_occur()/total)*100,2)
+    return data
 
 def tree(data):
     pass
@@ -49,7 +44,7 @@ def analyse(file):
 
 def getKey(element):
     """indique a la fonction sort() sur quel paramètres elle doit trier la liste"""
-    return element[1][0]
+    return element.get_occur()
 
 
 arbre = None
@@ -75,8 +70,6 @@ def build_tree(list_sommet):
 
     """version 2 recursif test"""
     """prend en entrée une liste non triée de sommets"""
-    global arbre
-
     if len(list_sommet) > 1:
         small = list_sommet[1]
         small_occur = small.get_occur()
@@ -95,22 +88,10 @@ def build_tree(list_sommet):
 
         sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(small_occur + smaller_occur))
         list_sommet.append(sous_arbre)
-        build_tree(list_sommet)
+        return build_tree(list_sommet)
 
     else:
-        arbre = list_sommet[0]
-        pass
-
-    # impossible de return list_sommet[0] directement
-    # solution temporaire de remplacement qui utilise une var globale pour
-    # le stocker puis le return (call_tree())
-
-
-def call_tree(list_sommet):
-    build_tree(list_sommet)
-    return arbre
-        
-         
+        return list_sommet[0]        
 
 
 
@@ -121,16 +102,14 @@ def unravell(arbre,n,chemin = ""):
     fd_tag = fd.get_tag()
 
     if fg_tag == None:
-        chemin += "0"
         print(n*" ",(fg.get_sommet().get_occur(),fg_tag))
-        unravell(fg,n+5,chemin)
+        unravell(fg,n+5,chemin+ "0")
     else:
         print(n*" " ,(fg_tag,fg.get_occur()),chemin + "0")
     
     if fd_tag == None:
-        chemin += "1"
         print(n*" ",(fd.get_sommet().get_occur(),fd_tag))
-        unravell(fd,n+5,chemin)
+        unravell(fd,n+5,chemin +"1")
     else:
         print(n*" " , (fd_tag,fd.get_occur()), chemin +"1")
 
@@ -138,11 +117,11 @@ def unravell(arbre,n,chemin = ""):
 
 # six = ArbreB(f, c, Sommet(f.get_occur() + c.get_occur()))
 
-joli_arbre = ArbreB
-l = analyse("texte.txt")
-build_tree(l)
-# unravell(joli_arbre,3)
-print(ArbreB.__mro__)
+joli_arbre = analyse("texte.txt")
+joli_arbre = build_tree(joli_arbre)
+print(joli_arbre.get_fd())
+unravell(joli_arbre,3)
+
 
 
 
