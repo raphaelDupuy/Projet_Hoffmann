@@ -86,7 +86,7 @@ def build_tree(list_sommet):
             elif occur < small_occur:
                 small = sommet
 
-        sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(small_occur + smaller_occur))
+        sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(small.get_occur() + smaller.get_occur()))
         list_sommet.append(sous_arbre)
         return build_tree(list_sommet)
 
