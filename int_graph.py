@@ -163,7 +163,7 @@ racine = tk.Tk()
 
 menu = tk.Button(racine, text=" creation arbre")
 menu.grid(column = 0,  row = 0 )
-screen = tk.Canvas(racine , width= 2000, height= 1000 , bg= "white", scrollregion=(0,0,4000,4000))
+screen = tk.Canvas(racine , width= 600, height= 600 , bg= "white", scrollregion=(0,0,4000,4000))
 screen.grid(column = 1, row = 0, )
 hbar=tk.Scrollbar(racine,orient="horizontal", command= screen.xview, width= 25)
 hbar.grid(row= 1, column=1, sticky="we")
@@ -171,6 +171,7 @@ hbar.grid(row= 1, column=1, sticky="we")
 vbar=tk.Scrollbar(racine,orient="vertical", command= screen.yview , width= 25)
 vbar.grid(row= 0, column=2, sticky="ns")
 creation_arbre(joli_arbre)
+screen.config( yscrollcommand= vbar.set, xscrollcommand= hbar.set)
 
 racine.mainloop()
 
