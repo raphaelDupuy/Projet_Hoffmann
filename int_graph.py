@@ -1,29 +1,29 @@
 import tkinter as tk
 from sommet import Sommet
 from arbreB import ArbreB
-from math import log2
 
 
 
 
 def draw_tree(arbre : ArbreB,x,y, ext):
-    screen.create_text(x  , y, text= str(arbre.get_occur()))
+    screen.create_text(x, y, text= str(arbre.get_occur()))
     if not ext:
         ext = 1
+    
     fg = arbre.get_fg()
     fg_tag = fg.get_tag()
     fd = arbre.get_fd()
     fd_tag = fd.get_tag()
     deplacement = 100 *ext
+
     screen.create_line((x,y),(x+ deplacement, y+100))
     screen.create_line((x,y),(x- deplacement, y+100))
     if isinstance(fd, ArbreB):
-       draw_tree(fd,x + deplacement, y + 100, ext - 1)
+       draw_tree(fd, x + deplacement, y + 100, ext - 1)
     else:
-        screen.create_text( x + deplacement, y + 100, text= fd_tag)
+        screen.create_text(x + deplacement, y + 100, text= fd_tag)
     if isinstance(fg, ArbreB):
-        draw_tree(fg, x - deplacement, y + 100, ext - 1)
-        
+        draw_tree(fg,x - deplacement, y + 100, ext - 1)
     else:
         screen.create_text(x - deplacement , y + 100, text= fg_tag)
 
@@ -40,9 +40,9 @@ def hauteur(arbre: ArbreB):
 def creation_arbre(arbre : ArbreB ):
     global screen
     et = hauteur(arbre)//2 +1
-    print(et)
     WIDTH, HEIGHT = 200*et, 200*et
-    screen = tk.Canvas(racine , width= 1000 , height=  1000 , bg= "white", scrollregion=(-WIDTH*4,0,WIDTH*6,HEIGHT))
+    screen = tk.Canvas(racine , width= 1000 , height=  1000 , bg= "white",
+                        scrollregion=(-WIDTH*4,0,WIDTH*6,HEIGHT))
     screen.grid(column = 1, row = 0, )
     hbar=tk.Scrollbar(racine,orient="horizontal", command= screen.xview, width= 25)
     hbar.grid(row= 1, column=1, sticky="we")
