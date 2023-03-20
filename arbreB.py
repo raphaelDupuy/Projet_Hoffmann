@@ -30,8 +30,19 @@ class ArbreB:
     def get_fd(self):
         return self.content[1]
 
+    # Modif de get tag :
+    #   passe de 
+        # def get_tag(self):
+        #     return self.tag
+    # qui ne permet pas de recup le tag du sommet
+    # mais celui à l'initialisation du noeud
+    # donc modif au cas ou le sommet change (suppr)
+    # à:
     def get_tag(self):
-        return self.tag
+        if self.sommet != None:
+            return self.sommet.get_tag()
+        else:
+            print("Sommet = None")
     
     def get_père(self):
         return self.père
@@ -43,12 +54,31 @@ class ArbreB:
     def instert(self, sommet):
         pass
 
-    # Supprime un sommet de l'arbreB
-    def suppr(self, sommet):
-        try:
-            self.content.remove(sommet)
-        except ValueError:
-            pass
+    # Supprime le sommet de l'arbreB
+    def suppr(self):
+
+        fg = self.get_fg
+        fd = self.get_fd
+        
+        if fg == Sommet:
+            self.sommet = fg
+            self.content[0] = None
+            del fg
+
+        elif fd == Sommet:
+            self.sommet = fd
+            self.content[1] = None
+            del fd
+
+        elif fg == ArbreB:
+            self.sommet = fg.get_sommet()
+            fg.suppr()
+
+        elif fd == ArbreB:
+            self.sommet = fd.get_sommet()
+            fd.suppr()
+
+        
 
     # Trouve un charractère dans l'arbreB
     def find(self, char):
