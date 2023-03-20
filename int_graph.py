@@ -4,30 +4,53 @@ from arbreB import ArbreB
 
 
 
-def creation_arbre(arbre, x = 700,y = 100, range  = 300 ):
-        t = 10
-        if x == 500 :
-            screen.create_oval((x-t,30-t),(x+t,30+t))
 
-        fg = arbre.get_fg()
-        fg_tag = fg.get_tag()
-        fd = arbre.get_fd()
-        fd_tag = fd.get_tag()
-        xfd = x + range
-        xfg = x - range
-        
-        if fd_tag == None:
-            screen.create_oval((xfd-t,y-t),(xfd+t,y+t))
-            creation_arbre(fd,xfd, y+60, range //2)
-            screen.create_text(xfd,y, text= fd.get_occur())
-        else:
-            screen.create_text(xfd,y, text= fd_tag)
-        if fg_tag == None:
-            screen.create_oval((xfg-t ,y-t),(xfg+t,y+t))
-            creation_arbre(fg,xfg, y+60, range //2)
-            screen.create_text(xfg,y, text= fg.get_occur())
-        else:
-            screen.create_text(xfg,y, text= fg_tag)
+def draw_tree(arbre : ArbreB,x,y, ext):
+    screen.create_text(x, y, text= str(arbre.get_occur()))
+    if not ext:
+        ext = 1
+    
+    fg = arbre.get_fg()
+    fg_tag = fg.get_tag()
+    fd = arbre.get_fd()
+    fd_tag = fd.get_tag()
+    deplacement = 100 *ext
+
+    screen.create_line((x,y),(x+ deplacement, y+100))
+    screen.create_line((x,y),(x- deplacement, y+100))
+    if isinstance(fd, ArbreB):
+       draw_tree(fd, x + deplacement, y + 100, ext - 1)
+    else:
+        screen.create_text(x + deplacement, y + 100, text= fd_tag)
+    if isinstance(fg, ArbreB):
+        draw_tree(fg,x - deplacement, y + 100, ext - 1)
+    else:
+        screen.create_text(x - deplacement , y + 100, text= fg_tag)
+
+
+def hauteur(arbre: ArbreB):
+    if isinstance(arbre, Sommet):
+        return 0
+    else:
+        return 1 + max(hauteur(arbre.get_fd()),hauteur(arbre.get_fg()))
+
+
+
+
+def creation_arbre(arbre : ArbreB ):
+    global screen
+    et = hauteur(arbre)//2 +1
+    WIDTH, HEIGHT = 200*et, 200*et
+    screen = tk.Canvas(racine , width= 1000 , height=  1000 , bg= "white",
+                        scrollregion=(-WIDTH*4,0,WIDTH*6,HEIGHT))
+    screen.grid(column = 1, row = 0, )
+    hbar=tk.Scrollbar(racine,orient="horizontal", command= screen.xview, width= 25)
+    hbar.grid(row= 1, column=1, sticky="we")
+
+    vbar=tk.Scrollbar(racine,orient="vertical", command= screen.yview , width= 25)
+    vbar.grid(row= 0, column=2, sticky="ns")
+    screen.config( yscrollcommand= vbar.set, xscrollcommand= hbar.set)  
+    draw_tree(arbre, WIDTH, 100, et )
 
     
         
@@ -84,24 +107,6 @@ def getKey(element):
 arbre = None
 def build_tree(list_sommet):
     """version 1"""
-    # """ prends en entré une liste de sommets et crèe un arbre avec,
-    #   les  2 sommets dont l'occurence est la plus faible"""
-    # global joli_arbre
-    # list_sommet = sorted(list_sommet, key=getKey)
-    # fg = (list_sommet[0][1][1])
-    # fd = (list_sommet[1][1][1])
-    # joli_arbre = ArbreB(fd,fg)
-    # if isinstance(fg, ArbreB):
-    #     fg = fg.get_sommet()
-    # if isinstance(fd, ArbreB):
-    #     fd = fd.get_sommet()
-    # joli_arbre.sommet = Sommet((fg.get_occur() + fd.get_occur() ))
-    # list_sommet.append((joli_arbre.get_tag(),(joli_arbre.get_sommet().get_occur(),joli_arbre)))
-    # del(list_sommet[:2])
-
-    # if len(list_sommet) != 1:
-    #     build_tree(list_sommet)
-
     """version 2 recursif test"""
     """prend en entrée une liste non triée de sommets"""
     if len(list_sommet) > 1:
@@ -149,29 +154,18 @@ def unravell(arbre,n,chemin = ""):
 
 
 
-# six = ArbreB(f, c, Sommet(f.get_occur() + c.get_occur()))
+
 
 joli_arbre = analyse("texte.txt")
 joli_arbre = build_tree(joli_arbre)
-unravell(joli_arbre,3)
-
-
-
+unravell(joli_arbre, 4)
+    
 
 
 racine = tk.Tk()
 
 menu = tk.Button(racine, text=" creation arbre")
 menu.grid(column = 0,  row = 0 )
-screen = tk.Canvas(racine , width= 600, height= 600 , bg= "white", scrollregion=(0,0,4000,4000))
-screen.grid(column = 1, row = 0, )
-hbar=tk.Scrollbar(racine,orient="horizontal", command= screen.xview, width= 25)
-hbar.grid(row= 1, column=1, sticky="we")
-
-vbar=tk.Scrollbar(racine,orient="vertical", command= screen.yview , width= 25)
-vbar.grid(row= 0, column=2, sticky="ns")
 creation_arbre(joli_arbre)
-screen.config( yscrollcommand= vbar.set, xscrollcommand= hbar.set)
-
 racine.mainloop()
 
