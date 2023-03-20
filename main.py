@@ -4,6 +4,12 @@ from arbreB import ArbreB
 total = 0
 
 
+def suppr(arbreB, sommet):
+    if arbreB == Sommet:
+        return None
+    fg = arbreB.get_fg()
+    fd = arbreB.get_fd()
+
 # Prend en entrée un fichier texte et retourne une liste de sommets correspondant 
 # aux charactères dans le fichier
 def extract(file):
@@ -94,7 +100,7 @@ def build_tree(list_sommet):
         return list_sommet[0]        
 
 
-
+# Permet de dérouller le chemin d'un arbre
 def unravell(arbre,n,chemin = ""):
     fg = arbre.get_fg()
     fg_tag = fg.get_tag()
