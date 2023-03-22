@@ -19,11 +19,11 @@ def draw_tree(arbre : ArbreB,x,y, ext):
     screen.create_line((x,y),(x+ deplacement, y+100))
     screen.create_line((x,y),(x- deplacement, y+100))
     if isinstance(fd, ArbreB):
-       draw_tree(fd, x + deplacement, y + 100, ext - 1)
+       draw_tree(fd, x + deplacement, y + 100, ext //1.5)
     else:
         screen.create_text(x + deplacement, y + 100, text= fd_tag)
     if isinstance(fg, ArbreB):
-        draw_tree(fg,x - deplacement, y + 100, ext - 1)
+        draw_tree(fg,x - deplacement, y + 100, ext //1.5)
     else:
         screen.create_text(x - deplacement , y + 100, text= fg_tag)
 
@@ -39,9 +39,9 @@ def hauteur(arbre: ArbreB):
 
 def creation_arbre(arbre : ArbreB ):
     global screen
-    et = hauteur(arbre)//2 +1
+    et = hauteur(arbre)
     WIDTH, HEIGHT = 200*et, 200*et
-    screen = tk.Canvas(racine , width= 1000 , height=  1000 , bg= "white",
+    screen = tk.Canvas(racine , width= 1000 , height=  800 , bg= "white",
                         scrollregion=(-WIDTH*4,0,WIDTH*6,HEIGHT))
     screen.grid(column = 1, row = 0, )
     hbar=tk.Scrollbar(racine,orient="horizontal", command= screen.xview, width= 25)
