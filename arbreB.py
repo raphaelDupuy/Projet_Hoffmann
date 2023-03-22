@@ -1,11 +1,9 @@
 from sommet import Sommet
 class ArbreB:
     
-    def __init__(self, fg, fd, sommet=None,  père=None):
+    def __init__(self, fg, fd, sommet=None):
         self.content = (fg, fd)
-        self.père = père
         self.sommet = sommet
-        self.tag = sommet.get_tag()
 
     def __add__(self, arb):
         fg = self.get_fg()
@@ -81,7 +79,7 @@ class ArbreB:
         
 
     # Trouve un charractère dans l'arbreB
-    def find(self, char):
+    def find(self, char, chemin=''):
 
         fg = self.get_fg()
         fg_tag = fg.get_tag()
@@ -89,17 +87,14 @@ class ArbreB:
         fd = self.get_fd()
         fd_tag = fd.get_tag()
 
-        if fg_tag != None:
-            if fg_tag == char:
-                return fg.get_chemin()
-        else:
-            fg.find(char)
+        if fg_tag == char:
+            return chemin + "0"
+        elif fd_tag == char:
+            return chemin + "1"
         
-        if fd_tag != None:
-            if fd_tag == char:
-                return fd.get_chemin()
-        else:
-            fd.find(char)
-
+        if type(fg) == ArbreB:
+            return fg.find(char, chemin + "0")
         
+        if type(fd) == ArbreB:
+            return fd.find(char, chemin + "1")
     

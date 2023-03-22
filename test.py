@@ -14,13 +14,9 @@ from sommet import Sommet
 
 feuille1 = Sommet(1, '1')
 feuille2 = Sommet(2, '2')
-feuille3 = Sommet(3, "3")
+feuille3 = Sommet(3, '3')
 noeud1 = ArbreB(feuille1, feuille2, Sommet(10, "noeud1"))
 root = ArbreB(noeud1, feuille3, Sommet(0, "root"))
 
-print(root.get_occur())
-print("suppr")
-root.suppr()
-print(root.get_sommet().get_occur())
-
+print(root.find('root'))
 
