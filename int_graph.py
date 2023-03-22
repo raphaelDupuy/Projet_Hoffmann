@@ -1,14 +1,14 @@
 import tkinter as tk
 from sommet import Sommet
 from arbreB import ArbreB
+from math import log2
 
 
 
 
 def draw_tree(arbre : ArbreB,x,y, ext):
     screen.create_text(x, y, text= str(arbre.get_occur()))
-    if not ext:
-        ext = 1
+    print(ext, hauteur(arbre))
     
     fg = arbre.get_fg()
     fg_tag = fg.get_tag()
@@ -19,11 +19,11 @@ def draw_tree(arbre : ArbreB,x,y, ext):
     screen.create_line((x,y),(x+ deplacement, y+100))
     screen.create_line((x,y),(x- deplacement, y+100))
     if isinstance(fd, ArbreB):
-       draw_tree(fd, x + deplacement, y + 100, ext //1.5)
+       draw_tree(fd, x + deplacement, y + 100, ext /2)
     else:
         screen.create_text(x + deplacement, y + 100, text= fd_tag)
     if isinstance(fg, ArbreB):
-        draw_tree(fg,x - deplacement, y + 100, ext //1.5)
+        draw_tree(fg,x - deplacement, y + 100, ext /2)
     else:
         screen.create_text(x - deplacement , y + 100, text= fg_tag)
 
@@ -39,7 +39,8 @@ def hauteur(arbre: ArbreB):
 
 def creation_arbre(arbre : ArbreB ):
     global screen
-    et = hauteur(arbre)
+    h  = hauteur(arbre) 
+    et = h * log2(h)
     WIDTH, HEIGHT = 200*et, 200*et
     screen = tk.Canvas(racine , width= 1000 , height=  800 , bg= "white",
                         scrollregion=(-WIDTH*4,0,WIDTH*6,HEIGHT))
@@ -110,20 +111,13 @@ def build_tree(list_sommet):
     """version 2 recursif test"""
     """prend en entrée une liste non triée de sommets"""
     if len(list_sommet) > 1:
+        list_sommet.sort( key = getKey)
         small = list_sommet[1]
         small_occur = small.get_occur()
 
         smaller = list_sommet[0]
         smaller_occur = smaller.get_occur()
 
-        for sommet in list_sommet[2:]:
-            occur = sommet.get_occur()
-
-            if occur < smaller_occur:
-                smaller = sommet
-
-            elif occur < small_occur:
-                small = sommet
 
         sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(round(small.get_occur() + smaller.get_occur(),2)))
         list_sommet.append(sous_arbre)
