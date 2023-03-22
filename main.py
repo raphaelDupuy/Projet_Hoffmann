@@ -4,11 +4,13 @@ from arbreB import ArbreB
 total = 0
 
 
+# à tester
 def suppr(arbreB, sommet):
-    if arbreB == Sommet:
-        return None
-    fg = arbreB.get_fg()
-    fd = arbreB.get_fd()
+    if arbreB == sommet:
+        arbreB.suppr()
+    elif type(arbreB) == ArbreB:
+        suppr(arbreB.get_fg())
+        suppr(arbreB.get_fd())
 
 # Prend en entrée un fichier texte et retourne une liste de sommets correspondant 
 # aux charactères dans le fichier
