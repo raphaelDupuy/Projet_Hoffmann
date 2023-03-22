@@ -57,8 +57,8 @@ class ArbreB:
     # Supprime le sommet de l'arbreB
     def suppr(self):
 
-        fg = self.get_fg
-        fd = self.get_fd
+        fg = self.get_fg()
+        fd = self.get_fd()
         
         if fg == Sommet:
             self.sommet = fg
