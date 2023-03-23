@@ -53,6 +53,7 @@ def creation_arbre(arbre : ArbreB ):
     draw_tree(arbre, WIDTH, 100, et )
     
 def spawn_tree(arbre : ArbreB):  
+    global frame
     racine = tk.Tk()
 
     frame = tk.Frame(racine)
