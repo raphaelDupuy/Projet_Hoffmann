@@ -12,11 +12,22 @@ from sommet import Sommet
 
 # data = [c, e, f, sp, i, o, t]
 
+def suppr(arbreB, noeud):
+    if arbreB == noeud:
+        arbreB.suppr()
+    elif type(arbreB) == ArbreB:
+        suppr(arbreB.get_fg(), noeud)
+        suppr(arbreB.get_fd(), noeud)
+
+
 feuille1 = Sommet(1, '1')
 feuille2 = Sommet(2, '2')
 feuille3 = Sommet(3, '3')
 noeud1 = ArbreB(feuille1, feuille2, Sommet(10, "noeud1"))
 root = ArbreB(noeud1, feuille3, Sommet(0, "root"))
 
-print(root.find('root'))
+suppr(root, noeud1)
+
+print(root.get_fg().get_fg().get_tag())
+
 
