@@ -5,12 +5,12 @@ total = 0
 
 
 # à tester
-def suppr(arbreB, sommet):
-    if arbreB == sommet:
+def suppr(arbreB, noeud):
+    if arbreB == noeud:
         arbreB.suppr()
     elif type(arbreB) == ArbreB:
-        suppr(arbreB.get_fg())
-        suppr(arbreB.get_fd())
+        suppr(arbreB.get_fg(), noeud)
+        suppr(arbreB.get_fd(), noeud)
 
 # Prend en entrée un fichier texte et retourne une liste de sommets correspondant 
 # aux charactères dans le fichier
