@@ -58,21 +58,21 @@ class ArbreB:
         fg = self.get_fg()
         fd = self.get_fd()
         
-        if fg == Sommet:
+        if type(fg) == Sommet:
             self.sommet = fg
-            self.content[0] = None
+            self.content = (None, self.content[1])
             del fg
 
-        elif fd == Sommet:
+        elif type(fd) == Sommet:
             self.sommet = fd
-            self.content[1] = None
+            self.content = (self.content[0], None)
             del fd
 
-        elif fg == ArbreB:
+        elif type(fg) == ArbreB:
             self.sommet = fg.get_sommet()
             fg.suppr()
 
-        elif fd == ArbreB:
+        elif type(fd) == ArbreB:
             self.sommet = fd.get_sommet()
             fd.suppr()
 

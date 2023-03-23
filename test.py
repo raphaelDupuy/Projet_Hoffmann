@@ -1,5 +1,6 @@
 from arbreB import ArbreB
 from sommet import Sommet
+from int_graph import *
 
 
 # c = Sommet(2, "c")
@@ -15,6 +16,7 @@ from sommet import Sommet
 def suppr(arbreB, noeud):
     if arbreB == noeud:
         arbreB.suppr()
+        print(f"done, {arbreB.get_tag()}")
     elif type(arbreB) == ArbreB:
         suppr(arbreB.get_fg(), noeud)
         suppr(arbreB.get_fd(), noeud)
@@ -26,8 +28,7 @@ feuille3 = Sommet(3, '3')
 noeud1 = ArbreB(feuille1, feuille2, Sommet(10, "noeud1"))
 root = ArbreB(noeud1, feuille3, Sommet(0, "root"))
 
-suppr(root, noeud1)
 
-print(root.get_fg().get_fg().get_tag())
+suppr(root, feuille1)
 
-
+print(noeud1.content)
