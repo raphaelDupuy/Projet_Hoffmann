@@ -1,6 +1,6 @@
 from sommet import Sommet
 from arbreB import ArbreB
-
+from int_graph import spawn_tree
 total = 0
 
 
@@ -15,7 +15,7 @@ def suppr(arbreB, noeud):
 # Prend en entrée un fichier texte et retourne une liste de sommets correspondant 
 # aux charactères dans le fichier
 def extract(file):
-    global total,arbre
+    global total,arbre, dictionnaire
     data = {}
     with open(file, "r") as fichier:
         for line in fichier:
@@ -25,6 +25,7 @@ def extract(file):
                     data[low_letter] = 1
                 else:
                     data[low_letter] += 1
+                dictionnaire[low_letter] = ""
                 total += 1
 
     classes = []
@@ -79,21 +80,9 @@ def build_tree(list_sommet):
     """version 2 recursif test"""
     """prend en entrée une liste non triée de sommets"""
     if len(list_sommet) > 1:
+        sorted(list_sommet, key=getKey)
         small = list_sommet[1]
-        small_occur = small.get_occur()
-
         smaller = list_sommet[0]
-        smaller_occur = smaller.get_occur()
-
-        for sommet in list_sommet[2:]:
-            occur = sommet.get_occur()
-
-            if occur < smaller_occur:
-                smaller = sommet
-
-            elif occur < small_occur:
-                small = sommet
-
         sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(small.get_occur() + smaller.get_occur()))
         list_sommet.append(sous_arbre)
         return build_tree(list_sommet)
@@ -123,9 +112,23 @@ def unravell(arbre,n,chemin = ""):
 
 
 
-# six = ArbreB(f, c, Sommet(f.get_occur() + c.get_occur()))
+def creation_dictionnaire(arbre: ArbreB):
+    for key in dictionnaire.keys():
+        dictionnaire[key] = arbre.find(key)
+    print(dictionnaire)
 
+def codage(arbre,charactere):
+    pass
+
+
+
+# six = ArbreB(f, c, Sommet(f.get_occur() + c.get_occur()))
+dictionnaire = {}
 joli_arbre = analyse("texte.txt")
 joli_arbre = build_tree(joli_arbre)
-unravell(joli_arbre,3)
+creation_dictionnaire(joli_arbre)
+spawn_tree(joli_arbre)
+
+
+
 

@@ -80,11 +80,14 @@ class ArbreB:
 
     # Trouve un charractère dans l'arbreB
     def find(self, char, chemin=''):
+       
 
         fg = self.get_fg()
+        print(fg.__dict__)
         fg_tag = fg.get_tag()
 
         fd = self.get_fd()
+        print(fd.__dict__)
         fd_tag = fd.get_tag()
 
         if fg_tag == char:
@@ -93,8 +96,12 @@ class ArbreB:
             return chemin + "1"
         
         if type(fg) == ArbreB:
-            return fg.find(char, chemin + "0")
+            essai = fg.find(char, chemin + "0")
+            if essai != None:
+                return essai
         
         if type(fd) == ArbreB:
-            return fd.find(char, chemin + "1")
+            essai = fd.find(char, chemin + "1")
+            if essai != None:
+                return essai
     
