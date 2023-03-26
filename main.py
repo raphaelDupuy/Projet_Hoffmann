@@ -4,13 +4,38 @@ from int_graph import spawn_tree
 total = 0
 
 
-# à tester
 def suppr(arbreB, noeud):
-    if arbreB == noeud:
-        arbreB.suppr()
-    elif type(arbreB) == ArbreB:
-        suppr(arbreB.get_fg(), noeud)
-        suppr(arbreB.get_fd(), noeud)
+
+    if arbreB.get_tag() == noeud:
+        if type(arbreB) == ArbreB:
+            return arbreB.suppr()
+        else:
+            return None
+
+    else:
+        fg = arbreB.get_fg()
+        fd = arbreB.get_fd()
+
+        if type(fg) == Sommet:
+            print(f"fg est sommet {fg.get_tag()}")
+            if fg.get_tag() == noeud:
+                arbreB.set_content(fg=None, fd=fd)
+                print("done")
+
+        if type(fd) == Sommet:
+            print(f"fd est sommet {fd.get_tag()}")
+            if fd.get_tag() == noeud:
+                arbreB.set_content(fg=fg, fd=None)
+                print("done")
+        
+        if type(fg) == ArbreB:
+            print("continue sur fg")
+            suppr(fg, noeud)
+
+        if type(fd) == ArbreB:
+            print("continue sur fd")
+            suppr(fd, noeud)
+
 
 # Prend en entrée un fichier texte et retourne une liste de sommets correspondant 
 # aux charactères dans le fichier
