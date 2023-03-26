@@ -1,6 +1,7 @@
 from sommet import Sommet
 from arbreB import ArbreB
 total = 0
+dictionnaire = {}
 
 
 def suppr(arbreB, noeud):
@@ -39,7 +40,7 @@ def suppr(arbreB, noeud):
 # Prend en entrée un fichier texte et retourne une liste de sommets correspondant 
 # aux charactères dans le fichier
 def extract(file):
-    global total,arbre, dictionnaire
+    global total, arbre, dictionnaire
     data = {}
     with open(file, "r") as fichier:
         for line in fichier:
