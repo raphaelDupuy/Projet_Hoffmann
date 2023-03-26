@@ -103,7 +103,7 @@ def build_tree(list_sommet):
         list_sommet.sort(key= lambda x: x.get_occur())
         small = list_sommet[1]
         smaller = list_sommet[0]
-        sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(round(small.get_occur() + smaller.get_occur()),2))
+        sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(round(small.get_occur() + smaller.get_occur(),2)))
         list_sommet.append(sous_arbre)
         return build_tree(list_sommet)
 
