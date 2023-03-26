@@ -43,7 +43,7 @@ def suppr(arbreB, noeud):
 def extract(file):
     global total, arbre, dictionnaire
     data = {}
-    with codecs.open(file, "r", encoding= "utf-8") as fichier:
+    with codecs.open(file+".txt", "r", encoding= "utf-8") as fichier:
         for line in fichier:
             for letter in line:
                 low_letter = letter.lower()
@@ -114,24 +114,6 @@ def build_tree(list_sommet):
     else:
         return list_sommet[0]
     
-# Permet de dérouller le chemin d'un arbre
-def unravell(arbre,n,chemin = ""):
-    fg = arbre.get_fg()
-    fg_tag = fg.get_tag()
-    fd = arbre.get_fd()
-    fd_tag = fd.get_tag()
-
-    if fg_tag == None:
-        print(n*" ",(fg.get_sommet().get_occur(),fg_tag))
-        unravell(fg,n+5,chemin+ "0")
-    else:
-        print(n*" " ,(fg_tag,fg.get_occur()),chemin + "0")
-    
-    if fd_tag == None:
-        print(n*" ",(fd.get_sommet().get_occur(),fd_tag))
-        unravell(fd,n+5,chemin +"1")
-    else:
-        print(n*" " , (fd_tag,fd.get_occur()), chemin +"1")
 
 
 def creation_dictionnaire(arbre: ArbreB):
@@ -139,17 +121,17 @@ def creation_dictionnaire(arbre: ArbreB):
         dictionnaire[key] = arbre.find(key)
 
 
-def codage(arbre):
-    print(len(dictionnaire))
-    with codecs.open("texte.txt","r", encoding="utf-8") as fichier:
-        with open("test2.txt","w") as fichier2:
+def codage(arbre,file):
+    with codecs.open(file+".txt","r", encoding="utf-8") as fichier:
+        with open(file+"c.txt","w") as fichier2:
             for line in fichier:
                 for letter in line:
                     fichier2.write(dictionnaire[letter.lower()])
+   
 
 
-def decodage(arbre):
-    with open("test2.txt","r") as fichier:
+def decodage(arbre,file):
+    with open("file.txt","r") as fichier:
         with codecs.open("test3.txt","w", encoding= "utf-8") as fichier2:
             racine = arbre
             for char in fichier.read():
