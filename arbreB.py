@@ -12,6 +12,9 @@ class ArbreB:
         noeud = ArbreB(arb, fg, Sommet(arb.get_occur() + fg.get_occur()))
         fg = noeud
         return self
+    
+    def __str__(self):
+        return f"fg: {self.content[0].get_tag()}, fd: {self.content[1].get_tag()}"
 
     def get_occur(self):
         return self.sommet.get_occur()
