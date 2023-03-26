@@ -1,5 +1,6 @@
 from sommet import Sommet
 from arbreB import ArbreB
+import codecs
 total = 0
 dictionnaire = {}
 
@@ -42,7 +43,7 @@ def suppr(arbreB, noeud):
 def extract(file):
     global total, arbre, dictionnaire
     data = {}
-    with open(file, "r") as fichier:
+    with codecs.open(file, "r", encoding= "utf-8") as fichier:
         for line in fichier:
             for letter in line:
                 low_letter = letter.lower()
@@ -139,7 +140,8 @@ def creation_dictionnaire(arbre: ArbreB):
 
 
 def codage(arbre):
-    with open("texte.txt","r") as fichier:
+    print(len(dictionnaire))
+    with codecs.open("texte.txt","r", encoding="utf-8") as fichier:
         with open("test2.txt","w") as fichier2:
             for line in fichier:
                 for letter in line:
@@ -148,7 +150,7 @@ def codage(arbre):
 
 def decodage(arbre):
     with open("test2.txt","r") as fichier:
-        with open("test3.txt","w") as fichier2:
+        with codecs.open("test3.txt","w", encoding= "utf-8") as fichier2:
             racine = arbre
             for char in fichier.read():
                 if char == "0":

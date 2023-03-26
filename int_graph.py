@@ -20,11 +20,11 @@ def draw_tree(arbre : ArbreB,x,y, ext):
     if isinstance(fd, ArbreB):
        draw_tree(fd, x + deplacement, y + 100, ext /2)
     else:
-        screen.create_text(x + deplacement, y + 100, text= fd_tag)
+        screen.create_text(x + deplacement, y + 100, text= fd_tag, fill= "red")
     if isinstance(fg, ArbreB):
         draw_tree(fg,x - deplacement, y + 100, ext /2)
     else:
-        screen.create_text(x - deplacement , y + 100, text= fg_tag)
+        screen.create_text(x - deplacement , y + 100, text= fg_tag, fill= "red")
 
 
 def hauteur(arbre: ArbreB):
@@ -62,7 +62,7 @@ def spawn_tree(arbre : ArbreB):
     frame.rowconfigure(1, weight= 1)
     menu = tk.Button(frame, text=" creation arbre")
     menu.grid(column = 0,  row = 0 )
-    creation_arbre(arbre)
+    menu.bind("<Button-1>", lambda event: creation_arbre(arbre))
     frame.mainloop()
 
 
