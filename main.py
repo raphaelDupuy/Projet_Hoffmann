@@ -7,4 +7,5 @@ dictionnaire = {}
 joli_arbre = analyse("texte.txt")
 joli_arbre = build_tree(joli_arbre)
 creation_dictionnaire(joli_arbre)
+codage(joli_arbre)
 spawn_tree(joli_arbre)

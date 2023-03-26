@@ -136,8 +136,12 @@ def unravell(arbre,n,chemin = ""):
 def creation_dictionnaire(arbre: ArbreB):
     for key in dictionnaire.keys():
         dictionnaire[key] = arbre.find(key)
-    print(dictionnaire)
 
-def codage(arbre,charactere):
-    pass
+
+def codage(arbre):
+    with open("texte.txt","r") as fichier:
+        with open("test2.txt","w") as fichier2:
+            for line in fichier:
+                for letter in line:
+                    fichier2.write(dictionnaire[letter.lower()])
 
