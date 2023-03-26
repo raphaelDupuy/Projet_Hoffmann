@@ -14,7 +14,16 @@ class ArbreB:
         return self
     
     def __str__(self):
-        return f"fg: {self.content[0].get_tag()}, fd: {self.content[1].get_tag()}"
+        fg, fd = None, None
+
+        if self.content[0] != None:
+            fg = self.content[0].get_tag()
+
+        
+        if self.content[1] != None:
+            fd = self.content[1].get_tag()
+
+        return f"fg: {fg}, fd: {fd}"
 
     def get_occur(self):
         return self.sommet.get_occur()

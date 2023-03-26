@@ -34,19 +34,24 @@ def suppr(arbreB, noeud):
         fg = arbreB.get_fg()
         fd = arbreB.get_fd()
 
-    if type(fg) == Sommet:
-        if fg.get_tag() == noeud:
-            arbreB.set_content(fg=None, fd=fd)
+        if type(fg) == Sommet:
+            print(f"fg est sommet {fg.get_tag()}")
+            if fg.get_tag() == noeud:
+                arbreB.set_content(fg=None, fd=fd)
+                print("done")
 
-    elif type(fd) == Sommet:
-        if fd.get_tag() == noeud:
-            arbreB.set_content(fg=fg, fd=None)
-    
-    else:
+        if type(fd) == Sommet:
+            print(f"fd est sommet {fd.get_tag()}")
+            if fd.get_tag() == noeud:
+                arbreB.set_content(fg=fg, fd=None)
+                print("done")
+        
         if type(fg) == ArbreB:
+            print("continue sur fg")
             suppr(fg, noeud)
 
         if type(fd) == ArbreB:
+            print("continue sur fd")
             suppr(fd, noeud)
 
 
@@ -60,6 +65,8 @@ noeud1 = ArbreB(feuille1, feuille2, Sommet(10, "noeud1"))
 root = ArbreB(noeud1, feuille3, Sommet(0, "root"))
 
 
-suppr(root, '1')
+suppr(root, 'noeud1')
 
+print(root)
 print(noeud1)
+
