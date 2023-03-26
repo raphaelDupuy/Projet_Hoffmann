@@ -145,3 +145,19 @@ def codage(arbre):
                 for letter in line:
                     fichier2.write(dictionnaire[letter.lower()])
 
+
+def decodage(arbre):
+    with open("test2.txt","r") as fichier:
+        with open("test3.txt","w") as fichier2:
+            racine = arbre
+            for char in fichier.read():
+                if char == "0":
+                    arbre = arbre.get_fg()
+                elif char == "1":
+                    arbre = arbre.get_fd()
+                if arbre.get_tag() != None:
+                    fichier2.write(arbre.get_tag())
+                    arbre = racine
+                    
+                
+

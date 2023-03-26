@@ -98,11 +98,9 @@ class ArbreB:
        
 
         fg = self.get_fg()
-        print(fg.__dict__)
         fg_tag = fg.get_tag()
 
         fd = self.get_fd()
-        print(fd.__dict__)
         fd_tag = fd.get_tag()
 
         if fg_tag == char:
