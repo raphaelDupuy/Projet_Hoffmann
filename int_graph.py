@@ -8,7 +8,7 @@ from tkinter.filedialog import askopenfilename
 
 
 screen = None
-fichier = askopenfilename(initialdir="projet", title="Select file", filetypes=(("text files", "*.txt"), ("all files", "*.*")))[:-4]
+fichier = askopenfilename(initialdir=".", title="Select file", filetypes=(("text files", "*.txt"), ("all files", "*.*")))[:-4]
 
 def draw_tree(arbre : ArbreB,x,y, ext):
     screen.create_text(x, y, text= str(arbre.get_occur()))
