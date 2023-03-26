@@ -75,10 +75,6 @@ def analyse(file):
     return percentage(data)
 
 
-def getKey(element):
-    """indique a la fonction sort() sur quel paramètres elle doit trier la liste"""
-    return element.get_occur()
-
 
 arbre = None
 def build_tree(list_sommet):
@@ -104,7 +100,7 @@ def build_tree(list_sommet):
     """version 2 recursif test"""
     """prend en entrée une liste non triée de sommets"""
     if len(list_sommet) > 1:
-        sorted(list_sommet, key=getKey)
+        list_sommet.key= lambda x: x.get_occur()
         small = list_sommet[1]
         smaller = list_sommet[0]
         sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(small.get_occur() + smaller.get_occur()))
