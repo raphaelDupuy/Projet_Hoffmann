@@ -100,10 +100,10 @@ def build_tree(list_sommet):
     """version 2 recursif test"""
     """prend en entrée une liste non triée de sommets"""
     if len(list_sommet) > 1:
-        list_sommet.key= lambda x: x.get_occur()
+        list_sommet.sort(key= lambda x: x.get_occur())
         small = list_sommet[1]
         smaller = list_sommet[0]
-        sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(small.get_occur() + smaller.get_occur()))
+        sous_arbre = ArbreB(list_sommet.pop(list_sommet.index(small)), list_sommet.pop(list_sommet.index(smaller)), Sommet(round(small.get_occur() + smaller.get_occur()),2))
         list_sommet.append(sous_arbre)
         return build_tree(list_sommet)
 
