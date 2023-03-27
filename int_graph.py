@@ -41,16 +41,16 @@ def hauteur(arbre: ArbreB):
 
 
 def creation_screen(arbre : ArbreB ):
-    global screen
+    global screen, screen_width, screen_height
     if screen:
         for widget in screen.find_all():
             screen.delete(widget)
     h  = hauteur(arbre) 
     et = h * log2(h)
     WIDTH, HEIGHT = 200*et, 200*et
-    screen = tk.Canvas(frame, width= 1000 , height=  800 , bg= "white",
+    screen = tk.Canvas(frame,  width= screen_width , height=  screen_height, bg= "white",
                         scrollregion=(-WIDTH*4,0,WIDTH*6,HEIGHT))
-    screen.grid(column = 1, row = 0,rowspan=4 )
+    screen.grid(column = 1, row = 0 )
     hbar=tk.Scrollbar(frame,orient="horizontal", command= screen.xview, width= 25)
     hbar.grid(row= 5, column=1, sticky="we")
 
@@ -61,12 +61,13 @@ def creation_screen(arbre : ArbreB ):
     
 
 def afficher_texte(texte,textecode):
-    global screen
+    global screen, screen_width, screen_height
     if screen:
         for widget in screen.find_all():
             screen.delete(widget)
-    screen = tk.Canvas(frame, width= 1000 , height=  800 , bg= "white",  scrollregion=(0,0,1000,1600))
-    screen.grid(column = 1, row = 0, )
+    else:
+        screen = tk.Canvas(frame, width= screen_width , height=  screen_height , bg= "white",  scrollregion=(0,0,1000,1600))
+        screen.grid(column = 1, row = 0, )
     screen.create_text(250 ,400, text= texte, width= 500, font= ("Arial", 12), anchor= "center")
     screen.create_text(750 ,400, text= textecode, width= 500, font= ("Arial", 12), anchor= "center")
     hbar=tk.Scrollbar(frame,orient="horizontal", command= screen.xview, width= 25)
@@ -78,11 +79,11 @@ def afficher_texte(texte,textecode):
 
 
 def spawn_tree(arbre : ArbreB):  
-    global frame
+    global frame, screen_width, screen_height
     racine = tk.Tk()
-    racine.attributes("-fullscreen", True)
+    screen_width = int(racine.winfo_screenwidth()*0.9)
+    screen_height = int(racine.winfo_screenheight()*0.9)
     frame = tk.Frame(racine)
-    frame.winfo_geometry
     frame.pack(fill="both", expand= True)
     frame.columnconfigure(1, weight= 1)
     frame.rowconfigure(1, weight= 1)
