@@ -80,8 +80,9 @@ def afficher_texte(texte,textecode):
 def spawn_tree(arbre : ArbreB):  
     global frame
     racine = tk.Tk()
-
+    racine.attributes("-fullscreen", True)
     frame = tk.Frame(racine)
+    frame.winfo_geometry
     frame.pack(fill="both", expand= True)
     frame.columnconfigure(1, weight= 1)
     frame.rowconfigure(1, weight= 1)
