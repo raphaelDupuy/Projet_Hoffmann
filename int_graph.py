@@ -66,11 +66,12 @@ def afficher_texte(texte,textecode):
     if screen:
         for widget in screen.find_all():
             screen.delete(widget)
+        screen.config(scrollregion=(0,0,4000,1600))
     else:
         screen = tk.Canvas(frame, width= screen_width , height=  screen_height ,
-                            bg= "white",  scrollregion=(0,0,1000,1600))
-        screen.grid(column = 1, row = 0, )
-    if askquestion("Question", "Voulez le texte selectioner est-il codé ?") =="yes":
+                            bg= "white",  scrollregion=(0,0,4000,1600))
+        screen.grid(column = 1, row = 0)
+    if askquestion("Question", "le texte selectioner est-il codé ?") =="yes":
         screen.create_text(screen_width // 4 ,screen_height // 2, text= textecode,
                             width= 500, font= ("Arial", 12), anchor= "center")
         screen.create_text(3*screen_width//4 ,screen_height // 2, text= texte,
@@ -80,6 +81,7 @@ def afficher_texte(texte,textecode):
                             width= 500, font= ("Arial", 12), anchor= "center")
         screen.create_text(3*screen_width//4 ,screen_height // 2, text= textecode,
                             width= 500, font= ("Arial", 12), anchor= "center")
+
     hbar=tk.Scrollbar(frame,orient="horizontal",
                        command= screen.xview, width= 25)
     hbar.grid(row= 5, column=1, sticky="we")
@@ -95,16 +97,17 @@ def spawn_tree(arbre : ArbreB):
     racine = tk.Tk()
     screen_width = int(racine.winfo_screenwidth()*0.9)
     screen_height = int(racine.winfo_screenheight()*0.9)
-    frame = tk.Frame(racine)
-    frame.pack(fill="both", expand= True)
-    frame.columnconfigure(1, weight= 1)
-    frame.rowconfigure(1, weight= 1)
-    creation_arbre = tk.Button(frame, text=" creation arbre")
+    creation_arbre = tk.Button(racine, text=" creation arbre")
     creation_arbre.grid(column = 0,  row = 0, )
-    affiche_text = tk.Button(frame, text=" afficher texte")
-    affiche_text.grid(column = 0,  row = 1) 
+    affiche_text = tk.Button(racine, text=" afficher texte")
+    affiche_text.grid(column = 1,  row = 0) 
     affiche_text.bind("<Button-1>", lambda event: afficher_texte(codecs.open(fichier +".txt","r", encoding="utf-8").read(), codecs.open(fichier +"c.txt","r", encoding="utf-8").read()))
     creation_arbre.bind("<Button-1>", lambda event: creation_screen(arbre))
+    frame = tk.Frame(racine)
+    frame.grid(column = 0, row = 2, columnspan = 2)
+    frame.columnconfigure(1, weight= 1)
+    frame.rowconfigure(1, weight= 1)
+
     frame.mainloop()
 
 
