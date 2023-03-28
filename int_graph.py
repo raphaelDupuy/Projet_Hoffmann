@@ -5,6 +5,7 @@ from math import log2
 import codecs
 from bibliothèque import *
 from tkinter.filedialog import askopenfilename 
+from tkinter.messagebox import askquestion
 
 
 screen = None
@@ -66,14 +67,25 @@ def afficher_texte(texte,textecode):
         for widget in screen.find_all():
             screen.delete(widget)
     else:
-        screen = tk.Canvas(frame, width= screen_width , height=  screen_height , bg= "white",  scrollregion=(0,0,1000,1600))
+        screen = tk.Canvas(frame, width= screen_width , height=  screen_height ,
+                            bg= "white",  scrollregion=(0,0,1000,1600))
         screen.grid(column = 1, row = 0, )
-    screen.create_text(screen_width // 4 ,screen_height // 2, text= texte, width= 500, font= ("Arial", 12), anchor= "center")
-    screen.create_text(3*screen_width//4 ,screen_height // 2, text= textecode, width= 500, font= ("Arial", 12), anchor= "center")
-    hbar=tk.Scrollbar(frame,orient="horizontal", command= screen.xview, width= 25)
+    if askquestion("Question", "Voulez le texte selectioner est-il codé ?") =="yes":
+        screen.create_text(screen_width // 4 ,screen_height // 2, text= textecode,
+                            width= 500, font= ("Arial", 12), anchor= "center")
+        screen.create_text(3*screen_width//4 ,screen_height // 2, text= texte,
+                            width= 500, font= ("Arial", 12), anchor= "center")
+    else:
+        screen.create_text(screen_width // 4 ,screen_height // 2, text= texte,
+                            width= 500, font= ("Arial", 12), anchor= "center")
+        screen.create_text(3*screen_width//4 ,screen_height // 2, text= textecode,
+                            width= 500, font= ("Arial", 12), anchor= "center")
+    hbar=tk.Scrollbar(frame,orient="horizontal",
+                       command= screen.xview, width= 25)
     hbar.grid(row= 5, column=1, sticky="we")
 
-    vbar=tk.Scrollbar(frame,orient="vertical", command= screen.yview , width= 25)
+    vbar=tk.Scrollbar(frame,orient="vertical",
+                       command= screen.yview , width= 25)
     vbar.grid(row= 0, column=2, sticky="ns")
     
 
