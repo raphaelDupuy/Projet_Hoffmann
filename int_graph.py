@@ -68,8 +68,8 @@ def afficher_texte(texte,textecode):
     else:
         screen = tk.Canvas(frame, width= screen_width , height=  screen_height , bg= "white",  scrollregion=(0,0,1000,1600))
         screen.grid(column = 1, row = 0, )
-    screen.create_text(250 ,400, text= texte, width= 500, font= ("Arial", 12), anchor= "center")
-    screen.create_text(750 ,400, text= textecode, width= 500, font= ("Arial", 12), anchor= "center")
+    screen.create_text(screen_width // 4 ,screen_height // 2, text= texte, width= 500, font= ("Arial", 12), anchor= "center")
+    screen.create_text(3*screen_width//4 ,screen_height // 2, text= textecode, width= 500, font= ("Arial", 12), anchor= "center")
     hbar=tk.Scrollbar(frame,orient="horizontal", command= screen.xview, width= 25)
     hbar.grid(row= 5, column=1, sticky="we")
 
