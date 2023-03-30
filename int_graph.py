@@ -110,5 +110,3 @@ def spawn_tree(arbre : ArbreB):
 
     frame.mainloop()
 
-
-
