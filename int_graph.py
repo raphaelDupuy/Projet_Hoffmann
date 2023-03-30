@@ -96,7 +96,7 @@ def spawn_tree(arbre : ArbreB):
     global frame, screen_width, screen_height
     racine = tk.Tk()
     screen_width = int(racine.winfo_screenwidth()*0.9)
-    screen_height = int(racine.winfo_screenheight()*0.9)
+    screen_height = int(racine.winfo_screenheight()*0.8)
     creation_arbre = tk.Button(racine, text=" creation arbre")
     creation_arbre.grid(column = 0,  row = 0, )
     affiche_text = tk.Button(racine, text=" afficher texte")
