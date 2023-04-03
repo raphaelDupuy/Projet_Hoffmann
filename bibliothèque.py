@@ -6,6 +6,7 @@ dictionnaire = {}
 
 
 def suppr(arbreB, noeud):
+    """prends un arbre binaire et un noeud et supprime le noeud de l'arbre"""
 
     if arbreB.get_tag() == noeud:
         if type(arbreB) == ArbreB:
@@ -41,6 +42,7 @@ def suppr(arbreB, noeud):
 # Prend en entrée un fichier texte et retourne une liste de sommets correspondant 
 # aux charactères dans le fichier
 def extract(file):
+    """prends un fichier et retourne une liste de sommets correspondant aux charactères du fichier"""
     global total, arbre, dictionnaire
     data = {}
     with codecs.open(file+".txt", "r", encoding= "utf-8") as fichier:
@@ -63,6 +65,7 @@ def extract(file):
 # Prend en entrée une liste d'objets sommets et le nombre total de charactères dans le fichier
 # à analyser et retourne un dictionnaire avec le char en clé et son pourcentage en value
 def percentage(data):
+    """prends une liste de sommets et attribue a chaque sommet sa valeur en pourcentage"""
     global total
     for sommet in data:
         sommet.occur = round((sommet.get_occur()/total)*100,2)
@@ -71,6 +74,8 @@ def percentage(data):
 
 # Fonction principale du programme
 def analyse(file):
+    """prends un fichier et retourne une liste avec tous les sommets 
+        qui correspondent aux charactères du fichier"""
     data = extract(file)
     return percentage(data)
 
@@ -78,27 +83,7 @@ def analyse(file):
 
 arbre = None
 def build_tree(list_sommet):
-    """version 1"""
-    # """ prends en entré une liste de sommets et crèe un arbre avec,
-    #   les  2 sommets dont l'occurence est la plus faible"""
-    # global joli_arbre
-    # list_sommet = sorted(list_sommet, key=getKey)
-    # fg = (list_sommet[0][1][1])
-    # fd = (list_sommet[1][1][1])
-    # joli_arbre = ArbreB(fd,fg)
-    # if isinstance(fg, ArbreB):
-    #     fg = fg.get_sommet()
-    # if isinstance(fd, ArbreB):
-    #     fd = fd.get_sommet()
-    # joli_arbre.sommet = Sommet((fg.get_occur() + fd.get_occur() ))
-    # list_sommet.append((joli_arbre.get_tag(),(joli_arbre.get_sommet().get_occur(),joli_arbre)))
-    # del(list_sommet[:2])
-
-    # if len(list_sommet) != 1:
-    #     build_tree(list_sommet)
-
-    """version 2 recursif test"""
-    """prend en entrée une liste non triée de sommets"""
+    """prends une liste de sommets et retourne un arbre binaire"""
     if len(list_sommet) > 1:
         list_sommet.sort(key= lambda x: x.get_occur())
         small = list_sommet[1]
@@ -113,31 +98,47 @@ def build_tree(list_sommet):
 
 
 def creation_dictionnaire(arbre: ArbreB):
+    """prends un arbre et retourne un dictionnaire avec les charactères comme 
+        clé et leur code comme valeur"""
     for key in dictionnaire.keys():
         dictionnaire[key] = arbre.find(key)
 
 
 def codage(arbre,file):
+    """prends un fichier et un arbre et retourne le texte codé"""
     with codecs.open(file+".txt","r", encoding="utf-8") as fichier:
         with open(file+"c.txt","w") as fichier2:
+            textecode = ""
             for line in fichier:
                 for letter in line:
                     fichier2.write(dictionnaire[letter.lower()])
+                    textecode += dictionnaire[letter.lower()]
+    return textecode
    
 
 
 def decodage(arbre,file):
-    with open("file.txt","r") as fichier:
-        with codecs.open("test3.txt","w", encoding= "utf-8") as fichier2:
-            racine = arbre
-            for char in fichier.read():
-                if char == "0":
-                    arbre = arbre.get_fg()
-                elif char == "1":
-                    arbre = arbre.get_fd()
-                if arbre.get_tag() != None:
-                    fichier2.write(arbre.get_tag())
+    """prends un fichier codé et un arbre et retourne le texte décodé"""
+    with open(file+".txt","r") as fichier:
+        racine = arbre
+        textecode = fichier.read()
+        texte = ""
+        for char in textecode:
+            textecode = textecode[1:]
+            if char == "0":
+                arbre = arbre.get_fg()
+            elif char == "1":
+                arbre = arbre.get_fd()
+            if isinstance(arbre, Sommet):
+                texte += arbre.get_tag()
+                if len(textecode) > 0:
                     arbre = racine
+            print(arbre.__dict__)
+        if isinstance(arbre, Sommet):
+            return texte
+        else:
+            print()
+            return "erreur ne texte n'est pas codé par cette arbre"
                     
                 
 
