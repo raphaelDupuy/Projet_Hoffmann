@@ -80,7 +80,7 @@ def afficher_texte(arbre : ArbreB):
                              filetypes=(("text files", "*.txt"),
                                          ("all files", "*.*")))[:-4]
 
-    if askquestion("Question", "le texte selectioner est-il codé ?") =="no":
+    if askquestion("Question", "le texte selectioné est-il codé ?") =="no":
         result = codage(arbre, entree)
         texteentre = codecs.open(entree +".txt","r", encoding="utf-8").read()
         screen.create_text(screen_width // 4 ,screen_height // 2, text= texteentre,
