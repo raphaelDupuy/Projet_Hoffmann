@@ -133,11 +133,9 @@ def decodage(arbre,file):
                 texte += arbre.get_tag()
                 if len(textecode) > 0:
                     arbre = racine
-            print(arbre.__dict__)
         if isinstance(arbre, Sommet):
             return texte
         else:
-            print()
             return "erreur ne texte n'est pas codé par cette arbre"
                     
                 

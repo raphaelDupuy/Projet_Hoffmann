@@ -94,14 +94,6 @@ def afficher_texte(arbre : ArbreB):
                             width= 500, font= ("Arial", 12), anchor= "center")
         screen.create_text(3*screen_width//4 ,screen_height // 2, text= result,
                             width= 500, font= ("Arial", 12), anchor= "center")
-
-    hbar=tk.Scrollbar(frame,orient="horizontal",
-                       command= screen.xview, width= 25)
-    hbar.grid(row= 5, column=1, sticky="we")
-
-    vbar=tk.Scrollbar(frame,orient="vertical",
-                       command= screen.yview , width= 25)
-    vbar.grid(row= 0, column=2, sticky="ns")
     
 
 
