@@ -54,18 +54,12 @@ class ArbreB:
         else:
             print("Sommet = None")
     
-    def get_père(self):
-        return self.père
-    
     def get_sommet(self):
         return self.sommet
     
     def set_content(self, fg, fd):
         self.content = (fg, fd)
 
-    # Insère un sommet avec un tag dans l'arbreB
-    def instert(self, sommet):
-        pass
 
     # Supprime le sommet de l'arbreB
     def suppr(self):
