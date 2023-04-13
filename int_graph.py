@@ -71,7 +71,7 @@ def afficher_texte(texte,textecode):
         screen = tk.Canvas(frame, width= screen_width , height=  screen_height ,
                             bg= "white",  scrollregion=(0,0,4000,1600))
         screen.grid(column = 1, row = 0)
-    if askquestion("Question", "le texte selectioner est-il codé ?") =="yes":
+    if askquestion("Question", "le texte selectionné est-il codé ?") =="yes":
         screen.create_text(screen_width // 4 ,screen_height // 2, text= textecode,
                             width= 500, font= ("Arial", 12), anchor= "center")
         screen.create_text(3*screen_width//4 ,screen_height // 2, text= texte,
