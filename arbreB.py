@@ -5,7 +5,7 @@ class ArbreB:
         self.content = (fg, fd)
         self.sommet = sommet
 
-    def __add__(self, arb):
+    def __iadd__(self, arb):
         fg = self.get_fg()
         while type(fg) == ArbreB:
             fg = fg.get_fg()
@@ -68,7 +68,7 @@ class ArbreB:
         pass
 
     # Supprime le sommet de l'arbreB
-    def suppr(self):
+    def __isub__(self):
 
         fg = self.get_fg()
         fd = self.get_fd()
