@@ -15,3 +15,6 @@ class Sommet:
     # Getter de l'attribut 'tag'
     def get_tag(self):
         return self.tag
+    
+    def __str__(self) -> str:
+        return f"occur: {self.get_occur()}, tag: {self.get_tag()}"

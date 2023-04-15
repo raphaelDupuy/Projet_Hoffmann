@@ -1,25 +1,42 @@
 from sommet import Sommet
 class ArbreB:
     
-    def __init__(self, fg, fd, sommet=None):
+    def __init__(self, fg=None, fd=None, sommet=None):
         self.content = (fg, fd)
         self.sommet = sommet
 
     def __iadd__(self, arb):
-        fg = self.get_fg()
-        while type(fg) == ArbreB:
-            fg = fg.get_fg()
-        noeud = ArbreB(arb, fg, Sommet(arb.get_occur() + fg.get_occur()))
-        fg = noeud
-        return self
-    
-    def __str__(self):
-        fg, fd = None, None
+        if (t_arb := type(arb)) == ArbreB or t_arb == Sommet:
 
+            fg = self.get_fg()
+            père = self
+            while type(fg) == ArbreB:
+                père = fg
+                fg = fg.get_fg()
+
+            if t_arb == ArbreB:
+                return arb.__iadd__(fg)
+
+            elif t_arb == Sommet:
+
+                if type(fg) == None:
+                    fg_occ = 0
+                elif type(fg) == Sommet:
+                    fg_occ = fg.get_occur()
+
+                noeud = ArbreB(arb, fg, Sommet(arb.get_occur() + fg_occ, f"{arb.get_tag()} {fg.get_tag()}"))
+                père.set_content(noeud, père.get_fd())
+                print("ici")
+                print(self)
+                print(self.get_fg())
+                return self
+        else:
+            raise TypeError("Impossible d'ajouter autre chose qu'un arbre ou un sommet")
+
+    def __str__(self):
         if self.content[0] != None:
             fg = self.content[0].get_tag()
 
-        
         if self.content[1] != None:
             fd = self.content[1].get_tag()
 
@@ -60,7 +77,6 @@ class ArbreB:
     def set_content(self, fg, fd):
         self.content = (fg, fd)
 
-
     # Supprime le sommet de l'arbreB
     def __isub__(self):
 
@@ -85,12 +101,9 @@ class ArbreB:
             self.sommet = fd.get_sommet()
             fd.suppr()
 
-        
-
     # Trouve un charractère dans l'arbreB
     def find(self, char, chemin=''):
        
-
         fg = self.get_fg()
         fg_tag = fg.get_tag()
 
