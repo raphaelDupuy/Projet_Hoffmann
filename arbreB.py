@@ -26,14 +26,39 @@ class ArbreB:
 
                 noeud = ArbreB(arb, fg, Sommet(arb.get_occur() + fg_occ, f"{arb.get_tag()} {fg.get_tag()}"))
                 père.set_content(noeud, père.get_fd())
-                print("ici")
-                print(self)
-                print(self.get_fg())
                 return self
         else:
             raise TypeError("Impossible d'ajouter autre chose qu'un arbre ou un sommet")
 
+    # Supprime le sommet de l'arbreB
+    def __isub__(self, som: Sommet):
+
+        fg = self.get_fg()
+        fd = self.get_fd()
+        
+        if type(fg) == Sommet:
+            print("tst fg")
+            if fg.get_tag() == som.get_tag():
+                self.set_content(None, self.content[1])
+                return self
+
+        elif type(fg) == ArbreB:
+            self.set_content(self.get_fg().__isub__(som), self.get_fd())
+            return self
+        
+        if type(fd) == Sommet:
+            print("tst fd")
+            if fd.get_tag() == som.get_tag():
+                self.set_content(self.content[0], None)
+                return self
+
+        elif type(fd) == ArbreB:
+            self.set_content(self.get_fg(), self.get_fd().__isub__(som))
+            return self
+
     def __str__(self):
+        fg, fd = None, None
+
         if self.content[0] != None:
             fg = self.content[0].get_tag()
 
@@ -76,30 +101,6 @@ class ArbreB:
     
     def set_content(self, fg, fd):
         self.content = (fg, fd)
-
-    # Supprime le sommet de l'arbreB
-    def __isub__(self):
-
-        fg = self.get_fg()
-        fd = self.get_fd()
-        
-        if type(fg) == Sommet:
-            self.sommet = fg
-            self.content = (None, self.content[1])
-            del fg
-
-        elif type(fd) == Sommet:
-            self.sommet = fd
-            self.content = (self.content[0], None)
-            del fd
-
-        elif type(fg) == ArbreB:
-            self.sommet = fg.get_sommet()
-            fg.suppr()
-
-        elif type(fd) == ArbreB:
-            self.sommet = fd.get_sommet()
-            fd.suppr()
 
     # Trouve un charractère dans l'arbreB
     def find(self, char, chemin=''):
