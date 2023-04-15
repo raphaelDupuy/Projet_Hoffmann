@@ -41,21 +41,21 @@ class ArbreB:
         if type(fg) == Sommet:
             print("tst fg")
             if fg.get_tag() == som.get_tag():
-                self.set_content(None, self.content[1])
+                self.set_fg(None)
                 return self
 
         elif type(fg) == ArbreB:
-            self.set_content(self.get_fg().__isub__(som), self.get_fd())
+            self.set_fg(self.get_fg().__isub__(som))
             return self
         
         if type(fd) == Sommet:
             print("tst fd")
             if fd.get_tag() == som.get_tag():
-                self.set_content(self.content[0], None)
+                self.set_fd(None)
                 return self
 
         elif type(fd) == ArbreB:
-            self.set_content(self.get_fg(), self.get_fd().__isub__(som))
+            self.set_fg(self.get_fd().__isub__(som))
             return self
 
     # Surcharge de la méthode __str__ pour afficher l'arbre
