@@ -70,11 +70,16 @@ def afficher_texte(arbre : ArbreB):
     if screen:
         for widget in screen.find_all():
             screen.delete(widget)
-        screen.config(scrollregion=(0,0,4000,1600))
+        screen.config(scrollregion=(0,-1600,4000,1600))
     else:
         screen = tk.Canvas(frame, width= screen_width , height=  screen_height ,
-                            bg= "white",  scrollregion=(0,0,4000,1600))
+                            bg= "white",  scrollregion=(0,-1600,4000,1600))
         screen.grid(column = 1, row = 0)
+        hbar=tk.Scrollbar(frame,orient="horizontal", command= screen.xview, width= 25)
+        hbar.grid(row= 5, column=1, sticky="we")
+
+        vbar=tk.Scrollbar(frame,orient="vertical", command= screen.yview , width= 25)
+        vbar.grid(row= 0, column=2, sticky="ns")
 
     entree = askopenfilename(initialdir=".", title="Select file", 
                              filetypes=(("text files", "*.txt"),
