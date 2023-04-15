@@ -10,4 +10,3 @@ arbre2 = ArbreB(Sommet(1, "c"), Sommet(2, "d"), sommet=Sommet(2+1))
 arbre += arbre2
 print(arbre)
 arbre -= a
-print(arbre.get_fg())

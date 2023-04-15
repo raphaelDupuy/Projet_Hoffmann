@@ -1,10 +1,12 @@
 from sommet import Sommet
 class ArbreB:
     
+    # Constructeur de la classe ArbreB
     def __init__(self, fg=None, fd=None, sommet=None):
         self.content = (fg, fd)
         self.sommet = sommet
 
+    # Surcharge de la methode __iadd__ qui ajoute un sommet ou un arbre à l'arbreB
     def __iadd__(self, arb):
         if (t_arb := type(arb)) == ArbreB or t_arb == Sommet:
 
@@ -30,7 +32,7 @@ class ArbreB:
         else:
             raise TypeError("Impossible d'ajouter autre chose qu'un arbre ou un sommet")
 
-    # Supprime le sommet de l'arbreB
+    # Surcharge de la methode __isub__ qui supprime un sommet de l'arbreB
     def __isub__(self, som: Sommet):
 
         fg = self.get_fg()
@@ -56,6 +58,7 @@ class ArbreB:
             self.set_content(self.get_fg(), self.get_fd().__isub__(som))
             return self
 
+    # Surcharge de la méthode __str__ pour afficher l'arbre
     def __str__(self):
         fg, fd = None, None
 
@@ -67,14 +70,15 @@ class ArbreB:
 
         return f"fg: {fg}, fd: {fd}"
 
+    # Getter de l'attribut 'occur'
     def get_occur(self):
         return self.sommet.get_occur()
     
     # Getter de l'attribut 'sommet'
-    def get_sommet(self):
+    def get_sommet(self) -> Sommet:
         return self.sommet
 
-    # Getter de l'attribut 'fils droit'
+    # Getter de l'attribut 'fils gauche'
     def get_fg(self):
         return self.content[0]
 
@@ -82,24 +86,39 @@ class ArbreB:
     def get_fd(self):
         return self.content[1]
 
-    # Modif de get tag :
-    #   passe de 
-        # def get_tag(self):
-        #     return self.tag
-    # qui ne permet pas de recup le tag du sommet
-    # mais celui à l'initialisation du noeud
-    # donc modif au cas ou le sommet change (suppr)
-    # à:
+    # Getter de l'attribut 'tag' du sommet associé à la racine de l'arbreB
     def get_tag(self):
         if self.sommet != None:
             return self.sommet.get_tag()
         else:
             print("Sommet = None")
+
+    # Getter de l'attribut 'content'
+    def get_content(self) -> tuple:
+        return self.content
     
-    def get_sommet(self):
-        return self.sommet
-    
-    def set_content(self, fg, fd):
+    # Setter de l'attribut 'occur' du sommet associé à la racine de l'arbreB
+    def set_occur(self, occur) -> None:
+        self.sommet.set_occur(occur)
+
+    # Setter de l'attribut 'sommet' associé à la racine de l'arbreB
+    def set_sommet(self, sommet: Sommet) -> None:
+        self.sommet = sommet
+
+    # Setter de l'attribut 'fils gauche' 
+    def set_fg(self, fg) -> None:
+        self.set_content(fg, self.content[1])
+
+    # Setter de l'attribut 'fils droit' 
+    def set_fd(self, fd) -> None:
+        self.set_content(self.content[0], fd)
+
+    # Setter de l'attribut 'tag' du sommet associé à la racine de l'arbreB
+    def set_tag(self, tag) -> None:
+        self.sommet.retag(tag)
+
+    # Setter de l'attribut 'content'
+    def set_content(self, fg, fd) -> None:
         self.content = (fg, fd)
 
     # Trouve un charractère dans l'arbreB
