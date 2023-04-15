@@ -24,3 +24,7 @@ class Sommet:
     # Surcharge de la fonction __str__ pour afficher le sommet
     def __str__(self) -> str:
         return f"occur: {self.get_occur()}, tag: {self.get_tag()}"
+    
+    # Méthode de copie du sommet
+    def copie(self):
+        return Sommet(self.get_occur(), self.get_tag())

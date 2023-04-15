@@ -5,7 +5,13 @@ total = 0
 dictionnaire = {}
 
 
-def suppr(arbreB, noeud):
+def fusion(arbreA, arbreB):
+    copA, copB = arbreA.copie(), arbreB.copie()
+    new = ArbreB(copA, copB, sommet=Sommet(arbreA.get_occur() + arbreB.get_occur(), f"[{arbreA.get_tag()} / {copB.get_tag()}]"))
+    return new
+
+
+def suppr(arbreB, noeud) -> None:
     """prends un arbre binaire et un noeud et supprime le noeud de l'arbre"""
 
     if arbreB.get_tag() == noeud:
@@ -82,7 +88,7 @@ def analyse(file):
 
 
 arbre = None
-def build_tree(list_sommet):
+def build_tree(list_sommet) -> None:
     """prends une liste de sommets et retourne un arbre binaire"""
     if len(list_sommet) > 1:
         list_sommet.sort(key= lambda x: x.get_occur())
@@ -97,7 +103,7 @@ def build_tree(list_sommet):
     
 
 
-def creation_dictionnaire(arbre: ArbreB):
+def creation_dictionnaire(arbre: ArbreB) -> None:
     """prends un arbre et retourne un dictionnaire avec les charactères comme 
         clé et leur code comme valeur"""
     for key in dictionnaire.keys():

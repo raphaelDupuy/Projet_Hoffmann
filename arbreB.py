@@ -68,8 +68,24 @@ class ArbreB:
         if self.content[1] != None:
             fd = self.content[1].get_tag()
 
-        return f"fg: {fg}, fd: {fd}"
+        if (tag := self.get_tag()) != None:
+            return f"fg: {fg}, fd: {fd}, tag: {tag}"
+        
+        else:
+            return f"fg: {fg}, fd: {fd}"
+        
+    # Methode de copie de l'arbreB et ses déscendants
+    def copie(self):
+        cop_fg, cop_fd = None, None
 
+        if (fg := self.get_fg()) != None:
+            cop_fg = fg.copie()
+
+        if (fd := self.get_fd()) != None:
+            cop_fd = fd.copie()
+
+        return ArbreB(cop_fg, cop_fd, self.get_sommet().copie())
+    
     # Getter de l'attribut 'occur'
     def get_occur(self):
         return self.sommet.get_occur()
