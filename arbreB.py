@@ -39,7 +39,6 @@ class ArbreB:
         fd = self.get_fd()
         
         if type(fg) == Sommet:
-            print("tst fg")
             if fg.get_tag() == som.get_tag():
                 self.set_fg(None)
                 return self
@@ -49,7 +48,6 @@ class ArbreB:
             return self
         
         if type(fd) == Sommet:
-            print("tst fd")
             if fd.get_tag() == som.get_tag():
                 self.set_fd(None)
                 return self
