@@ -17,8 +17,10 @@ def suppr(arbreB, noeud) -> None:
     """prends un arbre binaire et un noeud et supprime le noeud de l'arbre"""
 
     if arbreB.get_tag() == noeud:
+
         if type(arbreB) == ArbreB:
             return arbreB.suppr()
+        
         else:
             return None
 
@@ -55,8 +57,10 @@ def extract(file):
         for line in fichier:
             for letter in line:
                 low_letter = letter.lower()
+
                 if low_letter not in data.keys():
                     data[low_letter] = 1
+
                 else:
                     data[low_letter] += 1
                 dictionnaire[low_letter] = ""
@@ -84,7 +88,6 @@ def analyse(file):
 # Retourne un arbreB correspondant aux sommets donnés dans la liste en entrée
 arbre = None
 def build_tree(list_sommet):
-    """prends une liste de sommets et retourne un arbre binaire"""
     if len(list_sommet) > 1:
         list_sommet.sort(key= lambda x: x.get_occur())
         small = list_sommet[1]
@@ -99,14 +102,11 @@ def build_tree(list_sommet):
 # Ajoute dans le dictionnaire les chemins vers les charactères
 # via l'arbre de hoffmann
 def creation_dictionnaire(arbre: ArbreB) -> None:
-    """prends un arbre et retourne un dictionnaire avec les charactères comme 
-        clé et leur code comme valeur"""
     for key in dictionnaire.keys():
         dictionnaire[key] = arbre.find(key)
 
 # Renvoie le texte contenu dans le fichier, encodé par l'arbre donné
 def codage(arbre,file):
-    """prends un fichier et un arbre et retourne le texte codé"""
     with codecs.open(file+".txt","r", encoding="utf-8") as fichier:
         with open(file+"c.txt","w") as fichier2:
             textecode = ""
@@ -118,22 +118,28 @@ def codage(arbre,file):
 
 # Décode le texte donné avec l'arbre donné
 def decodage(arbre,file):
-    """prends un fichier codé et un arbre et retourne le texte décodé"""
     with open(file+".txt","r") as fichier:
         racine = arbre
         textecode = fichier.read()
         texte = ""
+
         for char in textecode:
             textecode = textecode[1:]
+
             if char == "0":
                 arbre = arbre.get_fg()
+
             elif char == "1":
                 arbre = arbre.get_fd()
+
             if isinstance(arbre, Sommet):
                 texte += arbre.get_tag()
+
                 if len(textecode) > 0:
                     arbre = racine
+
         if isinstance(arbre, Sommet):
             return texte
+        
         else:
             return "erreur ne texte n'est pas codé par cette arbre"
