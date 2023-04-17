@@ -76,6 +76,13 @@ def afficher_texte(arbre : ArbreB):
         screen = tk.Canvas(frame, width= screen_width , height=  screen_height ,
                             bg= "white",  scrollregion=(0,-1600,1000,2100))
         screen.grid(column = 1, row = 0)
+        hbar=tk.Scrollbar(frame,orient="horizontal", command= screen.xview, width= 25)
+        hbar.grid(row= 5, column=1, sticky="we")
+
+        vbar=tk.Scrollbar(frame,orient="vertical", command= screen.yview , width= 25)
+        vbar.grid(row= 0, column=2, sticky="ns")
+        screen.config( yscrollcommand= vbar.set, xscrollcommand= hbar.set)
+
     screen.xview_moveto(0)
     screen.yview_moveto(0.5)
 
@@ -108,8 +115,8 @@ def spawn_tree():
     racine = tk.Tk()
     screen_width = int(racine.winfo_screenwidth()*0.9)
     screen_height = int(racine.winfo_screenheight()*0.8)
-    creation_arbre = tk.Button(racine, text=" creation arbre")
-    creation_arbre.grid(column = 0,  row = 0, )
+    creation_arbre = tk.Button(racine, text=" afficher arbre")
+    creation_arbre.grid(column = 0,  row = 0 )
     affiche_text = tk.Button(racine, text=" afficher texte")
     affiche_text.grid(column = 1,  row = 0) 
 
