@@ -8,10 +8,8 @@ from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import askquestion
 from os import remove
 
-
 screen = None
 dictionnaire = {}
-
 
 def draw_tree(arbre : ArbreB,x,y, ext):
     screen.create_text(x, y, text= str(arbre.get_occur()))
@@ -33,15 +31,11 @@ def draw_tree(arbre : ArbreB,x,y, ext):
     else:
         screen.create_text(x - deplacement , y + 100, text= fg_tag, fill= "red")
 
-
 def hauteur(arbre: ArbreB):
     if isinstance(arbre, Sommet):
         return 0
     else:
         return 1 + max(hauteur(arbre.get_fd()),hauteur(arbre.get_fg()))
-
-
-
 
 def creation_screen(arbre : ArbreB ):
     global screen, screen_width, screen_height
@@ -61,7 +55,6 @@ def creation_screen(arbre : ArbreB ):
     vbar.grid(row= 0, column=2, sticky="ns")
     screen.config( yscrollcommand= vbar.set, xscrollcommand= hbar.set)
     draw_tree(arbre, WIDTH, 100, et )
-    
 
 def afficher_texte(arbre : ArbreB):
 
@@ -98,13 +91,10 @@ def afficher_texte(arbre : ArbreB):
                             width= 500, font= ("Arial", 12), anchor= "center")
         screen.create_text(3*screen_width//4 ,screen_height // 2, text= result,
                             width= 500, font= ("Arial", 12), anchor= "center")
-    
-
 
 def spawn_tree():  
     global frame, screen_width, screen_height
     
-
     racine = tk.Tk()
     screen_width = int(racine.winfo_screenwidth()*0.9)
     screen_height = int(racine.winfo_screenheight()*0.8)
@@ -130,4 +120,3 @@ def spawn_tree():
 
     frame.mainloop()
     remove(fichier+"c.txt")
-
