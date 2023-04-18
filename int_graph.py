@@ -81,9 +81,9 @@ def afficher_texte(arbre : ArbreB):
     else:
         result = decodage(arbre, entree)
         texteentre = codecs.open(entree +".txt","r", encoding="utf-8").read()
-    entre = tk.Text(frame, wrap="word", width= 200,font = ("Arial", 12))
+    entre = tk.Text(frame, wrap="word", width= 100,font = ("Arial", 12))
     entre.grid(column = 0, row = 0)
-    sortie = tk.Text(frame, wrap="word", width= 50, font= ("Arial", 12))
+    sortie = tk.Text(frame, wrap="word", width= 100, font= ("Arial", 12))
     sortie.grid(column = 2, row = 0)
     entre.insert(tk.END, texteentre)
     sortie.insert(tk.END, result)
