@@ -112,7 +112,7 @@ def codage(arbre,file):
             textecode = ""
             for line in fichier:
                 for letter in line:
-                    if not letter in dictionnaire.keys():
+                    if  letter.lower() not in dictionnaire.keys():
                         return " erreur l'arbre n'est pas codé par ce texte"
                     fichier2.write(dictionnaire[letter.lower()])
                     textecode += dictionnaire[letter.lower()]
