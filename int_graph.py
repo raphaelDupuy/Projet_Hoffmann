@@ -12,6 +12,7 @@ screen = None
 dictionnaire = {}
 
 def draw_tree(arbre : ArbreB,x,y, ext):
+    """ prend en entrée un arbre binaire et dessine l'arbre binaire"""
     screen.create_text(x, y, text= str(arbre.get_occur()))
     
     fg = arbre.get_fg()
@@ -32,12 +33,14 @@ def draw_tree(arbre : ArbreB,x,y, ext):
         screen.create_text(x - deplacement , y + 100, text= fg_tag, fill= "red")
 
 def hauteur(arbre: ArbreB):
+    """ prend en entrée un arbre binaire et renvoie la hauteur de l'arbre"""
     if isinstance(arbre, Sommet):
         return 0
     else:
         return 1 + max(hauteur(arbre.get_fd()),hauteur(arbre.get_fg()))
 
 def creation_screen(arbre : ArbreB ):
+    """ prend en entrée un arbre binaire et prépare l'écran pour l'affichage de l'arbre"""
     global screen, screen_width, screen_height
     if screen:
         for widget in screen.find_all():
@@ -57,6 +60,7 @@ def creation_screen(arbre : ArbreB ):
     draw_tree(arbre, WIDTH, 100, et )
 
 def afficher_texte(arbre : ArbreB):
+    """ prend en entrée un texte et affiche son resultat codé ou décodé"""
 
     # codecs.open(fichier +".txt","r", encoding="utf-8").read(), codecs.open(fichier +"c.txt","r", encoding="utf-8").read())
     global screen, screen_width, screen_height
@@ -83,26 +87,31 @@ def afficher_texte(arbre : ArbreB):
     entree = askopenfilename(initialdir=".", title="Select file", 
                              filetypes=(("text files", "*.txt"),
                                          ("all files", "*.*")))[:-4]
+    
+    x,y = screen_width // 4, screen_height // 2
 
     if askquestion("Question", "le texte selectionné est-il codé ?") =="no":
         result = codage(arbre, entree)
         texteentre = codecs.open(entree +".txt","r", encoding="utf-8").read()
-        screen.create_text(screen_width // 4 ,screen_height // 2, text= texteentre,
+        screen.create_text(x, y, text= texteentre,
                             width= 500, font= ("Arial", 12), anchor= "center")
-        screen.create_text(3*screen_width//4 ,screen_height // 2, text= result,
+        screen.create_text(3*x, y, text= result,
                             width= 500, font= ("Arial", 12), anchor= "center")
     else:
         result = decodage(arbre, entree)
         texteentre = codecs.open(entree +".txt","r", encoding="utf-8").read()
-        screen.create_text(screen_width // 4 ,screen_height // 2, text=texteentre,
+        screen.create_text(x , y, text=texteentre,
                             width= 500, font= ("Arial", 12), anchor= "center")
-        screen.create_text(3*screen_width//4 ,screen_height // 2, text= result,
+        screen.create_text(3*x, y, text= result,
                             width= 500, font= ("Arial", 12), anchor= "center")
 
 def spawn_tree():  
+    """ cree une fenetre graphique pour manipuler 
+    l'arbre binaire qu'il créera"""
     global frame, screen_width, screen_height
     
     racine = tk.Tk()
+    racine.title("traitement arbre binaire")
     screen_width = int(racine.winfo_screenwidth()*0.9)
     screen_height = int(racine.winfo_screenheight()*0.8)
     creation_arbre = tk.Button(racine, text=" afficher arbre")
