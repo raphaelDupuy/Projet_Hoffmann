@@ -1,13 +1,13 @@
 from sommet import Sommet
 class ArbreB:
     
-    # Constructeur de la classe ArbreB
     def __init__(self, fg=None, fd=None, sommet=None):
+        """Constructeur de la classe ArbreB"""
         self.content = (fg, fd)
         self.sommet = sommet
 
-    # Surcharge de la methode __iadd__ qui ajoute un sommet ou un arbre à l'arbreB
     def __iadd__(self, arb):
+        """Surcharge de la methode __iadd__ qui ajoute un sommet ou un arbre à l'arbreB"""
         if (t_arb := type(arb)) == ArbreB or t_arb == Sommet:
 
             fg = self.get_fg()
@@ -32,9 +32,8 @@ class ArbreB:
         else:
             raise TypeError("Impossible d'ajouter autre chose qu'un arbre ou un sommet")
 
-    # Surcharge de la methode __isub__ qui supprime un sommet de l'arbreB
     def __isub__(self, som: Sommet):
-
+        """Surcharge de la methode __isub__ qui supprime un sommet de l'arbreB"""
         fg = self.get_fg()
         fd = self.get_fd()
         
@@ -56,8 +55,8 @@ class ArbreB:
             self.set_fg(self.get_fd().__isub__(som))
             return self
 
-    # Surcharge de la méthode __str__ pour afficher l'arbre
     def __str__(self):
+        """Surcharge de la méthode __str__ pour afficher l'arbre"""
         fg, fd = None, None
 
         if self.content[0] != None:
@@ -71,9 +70,9 @@ class ArbreB:
         
         else:
             return f"fg: {fg}, fd: {fd}"
-        
-    # Methode de copie de l'arbreB et ses déscendants
+
     def copie(self):
+        """Methode de copie de l'arbreB et ses déscendants"""
         cop_fg, cop_fd = None, None
 
         if (fg := self.get_fg()) != None:
@@ -84,60 +83,59 @@ class ArbreB:
 
         return ArbreB(cop_fg, cop_fd, self.get_sommet().copie())
     
-    # Getter de l'attribut 'occur'
     def get_occur(self):
+        """Getter de l'attribut 'occur'"""
         return self.sommet.get_occur()
     
-    # Getter de l'attribut 'sommet'
     def get_sommet(self) -> Sommet:
+        """Getter de l'attribut 'sommet'"""
         return self.sommet
 
-    # Getter de l'attribut 'fils gauche'
     def get_fg(self):
+        """Getter de l'attribut 'fils gauche'"""
         return self.content[0]
 
-    # Getter de l'attribut 'fils droit'
     def get_fd(self):
+        """Getter de l'attribut 'fils droit'"""
         return self.content[1]
 
-    # Getter de l'attribut 'tag' du sommet associé à la racine de l'arbreB
     def get_tag(self):
+        """Getter de l'attribut 'tag' du sommet associé à la racine de l'arbreB"""
         if self.sommet != None:
             return self.sommet.get_tag()
         else:
             print("Sommet = None")
 
-    # Getter de l'attribut 'content'
     def get_content(self) -> tuple:
+        """Getter de l'attribut 'content'"""
         return self.content
     
-    # Setter de l'attribut 'occur' du sommet associé à la racine de l'arbreB
     def set_occur(self, occur) -> None:
+        """Setter de l'attribut 'occur' du sommet associé à la racine de l'arbreB"""
         self.sommet.set_occur(occur)
 
-    # Setter de l'attribut 'sommet' associé à la racine de l'arbreB
     def set_sommet(self, sommet: Sommet) -> None:
+        """Setter de l'attribut 'sommet' associé à la racine de l'arbreB"""
         self.sommet = sommet
 
-    # Setter de l'attribut 'fils gauche' 
     def set_fg(self, fg) -> None:
+        """Setter de l'attribut 'fils gauche'"""
         self.set_content(fg, self.content[1])
 
-    # Setter de l'attribut 'fils droit' 
     def set_fd(self, fd) -> None:
+        """Setter de l'attribut 'fils droit'"""
         self.set_content(self.content[0], fd)
 
-    # Setter de l'attribut 'tag' du sommet associé à la racine de l'arbreB
     def set_tag(self, tag) -> None:
+        """Setter de l'attribut 'tag' du sommet associé à la racine de l'arbreB"""
         self.sommet.retag(tag)
 
-    # Setter de l'attribut 'content'
     def set_content(self, fg, fd) -> None:
+        """Setter de l'attribut 'content'"""
         self.content = (fg, fd)
 
-    # Trouve un charractère dans l'arbreB
     def find(self, char, chemin=''):
-       
+        """Trouve un charractère dans l'arbreB"""
         fg = self.get_fg()
         fg_tag = fg.get_tag()
 
