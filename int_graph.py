@@ -6,6 +6,7 @@ import codecs
 from bibliothèque import *
 from tkinter.filedialog import askopenfilename 
 from tkinter.messagebox import askquestion
+from tkinter.messagebox import showinfo
 from os import remove
 
 screen = None
@@ -42,9 +43,8 @@ def hauteur(arbre: ArbreB):
 def creation_screen(arbre : ArbreB ):
     """ prend en entrée un arbre binaire et prépare l'écran pour l'affichage de l'arbre"""
     global screen, screen_width, screen_height
-    if screen:
-        for widget in screen.find_all():
-            screen.delete(widget)
+    for child in  frame.winfo_children():
+       child.destroy()
     h  = hauteur(arbre) 
     et = h * log2(h)
     WIDTH, HEIGHT = 200*et, 200*et
@@ -64,13 +64,18 @@ def afficher_texte(arbre : ArbreB):
 
     # codecs.open(fichier +".txt","r", encoding="utf-8").read(), codecs.open(fichier +"c.txt","r", encoding="utf-8").read())
     global screen, screen_width, screen_height
-    if screen:
-        screen.destroy()
+    for child in  frame.winfo_children():
+       child.destroy()
 
-
+    print(frame.winfo_children())
     entree = askopenfilename(initialdir=".", title="Select file", 
                              filetypes=(("text files", "*.txt"),
                                          ("all files", "*.*")))[:-4]
+    while not entree:
+        showinfo("erreur", "veuillez selectionner un fichier")
+        entree = askopenfilename(initialdir=".", title="Select file", 
+                                 filetypes=(("text files", "*.txt"),
+                                            ("all files", "*.*")))[:-4]
     
 
     if askquestion("Question", "le texte selectionné est-il codé ?") =="no":
@@ -106,6 +111,11 @@ def spawn_tree():
     fichier = askopenfilename(initialdir=".", title="Select file", 
                               filetypes=(("text files", "*.txt"),
                                          ("all files", "*.*")))[:-4]
+    while not fichier:
+        showinfo("erreur", "veuillez selectionner un fichier")
+        fichier = askopenfilename(initialdir=".", title="Select file", 
+                                  filetypes=(("text files", "*.txt"),
+                                             ("all files", "*.*")))[:-4]
     
     liste_sommet = analyse(fichier)
     arbre = build_tree(liste_sommet)
