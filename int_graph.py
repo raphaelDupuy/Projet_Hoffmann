@@ -61,7 +61,6 @@ def creation_screen(arbre : ArbreB ):
 
 def afficher_texte(arbre : ArbreB):
     """prend en entrée un texte et affiche son resultat codé ou décodé"""
-    global screen, screen_width, screen_height
     for child in  frame.winfo_children():
        child.destroy()
 
@@ -93,7 +92,7 @@ def afficher_texte(arbre : ArbreB):
 
 def spawn_tree():  
     """créé une fenêtre graphique pour manipuler 
-    l'arbre binaire ainsi créé"""
+    l'arbre binaire créé"""
     global frame, screen_width, screen_height
     
     racine = tk.Tk()
