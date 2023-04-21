@@ -143,4 +143,4 @@ def decodage(arbre,file):
             return texte
         
         else:
-            return "erreur ne texte n'est pas codé par cette arbre"
+            return "erreur ce texte n'est pas codé par cet arbre"

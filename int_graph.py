@@ -66,7 +66,6 @@ def afficher_texte(arbre : ArbreB):
     for child in  frame.winfo_children():
        child.destroy()
 
-    print(frame.winfo_children())
     entree = askopenfilename(initialdir=".", title="Select file", 
                              filetypes=(("text files", "*.txt"),
                                          ("all files", "*.*")))[:-4]

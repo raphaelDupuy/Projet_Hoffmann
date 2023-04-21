@@ -111,7 +111,7 @@ class ArbreB:
         if self.sommet != None:
             return self.sommet.get_tag()
         else:
-            print("Sommet = None")
+            return None
 
     def get_content(self) -> tuple:
         """Getter de l'attribut 'content'"""
