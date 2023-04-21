@@ -33,14 +33,14 @@ def draw_tree(arbre : ArbreB,x,y, ext):
         screen.create_text(x - deplacement , y + 100, text= fg_tag, fill= "red")
 
 def hauteur(arbre: ArbreB):
-    """ prend en entrée un arbre binaire et renvoie la hauteur de l'arbre"""
+    """prend en entrée un arbre binaire et renvoie la hauteur de l'arbre"""
     if isinstance(arbre, Sommet):
         return 0
     else:
         return 1 + max(hauteur(arbre.get_fd()),hauteur(arbre.get_fg()))
 
 def creation_screen(arbre : ArbreB ):
-    """ prend en entrée un arbre binaire et prépare l'écran pour l'affichage de l'arbre"""
+    """prend en entrée un arbre binaire et prépare l'écran pour l'affichage de l'arbre"""
     global screen, screen_width, screen_height
     if screen:
         for widget in screen.find_all():
@@ -60,7 +60,7 @@ def creation_screen(arbre : ArbreB ):
     draw_tree(arbre, WIDTH, 100, et )
 
 def afficher_texte(arbre : ArbreB):
-    """ prend en entrée un texte et affiche son resultat codé ou décodé"""
+    """prend en entrée un texte et affiche son resultat codé ou décodé"""
 
     # codecs.open(fichier +".txt","r", encoding="utf-8").read(), codecs.open(fichier +"c.txt","r", encoding="utf-8").read())
     global screen, screen_width, screen_height
@@ -90,8 +90,8 @@ def afficher_texte(arbre : ArbreB):
 
 
 def spawn_tree():  
-    """ cree une fenetre graphique pour manipuler 
-    l'arbre binaire qu'il créera"""
+    """créé une fenêtre graphique pour manipuler 
+    l'arbre binaire ainsi créé"""
     global frame, screen_width, screen_height
     
     racine = tk.Tk()

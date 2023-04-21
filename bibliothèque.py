@@ -50,7 +50,7 @@ def suppr(arbreB, noeud) -> None:
 def extract(file):
     """Prend en entrée un fichier texte et retourne une liste de sommets correspondant 
         aux charactères dans le fichier"""
-    global total, arbre, dictionnaire
+    global total, arbre1, dictionnaire
     data = {}
     with codecs.open(file+".txt", "r", encoding= "utf-8") as fichier:
         for line in fichier:
@@ -84,7 +84,7 @@ def analyse(file):
     data = extract(file)
     return percentage(data)
 
-arbre = None
+arbre1 = None
 def build_tree(list_sommet):
     """Retourne un arbreB correspondant aux sommets donnés dans la liste en entrée"""
     if len(list_sommet) > 1:

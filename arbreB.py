@@ -12,6 +12,8 @@ class ArbreB:
 
             fg = self.get_fg()
             père = self
+            fg_occ = 0
+            fg_tag = None
             while type(fg) == ArbreB:
                 père = fg
                 fg = fg.get_fg()
@@ -21,13 +23,16 @@ class ArbreB:
 
             elif t_arb == Sommet:
 
-                if type(fg) == None:
-                    fg_occ = 0
+                if fg == None:
+                    père.set_content(arb, père.get_fd())
+                    père.set_tag(f"[{arb.get_tag()}/{père.get_fd().get_tag()}]")
+                    
                 elif type(fg) == Sommet:
                     fg_occ = fg.get_occur()
-
-                noeud = ArbreB(arb, fg, Sommet(arb.get_occur() + fg_occ, f"{arb.get_tag()} {fg.get_tag()}"))
-                père.set_content(noeud, père.get_fd())
+                    fg_tag = fg.get_tag()
+                    noeud = ArbreB(arb, fg, Sommet(arb.get_occur() + fg_occ, f"[{arb.get_tag()}/{fg_tag}]"))
+                    père.set_content(noeud, père.get_fd())
+                    père.set_tag(f"[{noeud.get_tag()}/{père.get_fd().get_tag()}]")
                 return self
         else:
             raise TypeError("Impossible d'ajouter autre chose qu'un arbre ou un sommet")
@@ -40,6 +45,7 @@ class ArbreB:
         if type(fg) == Sommet:
             if fg.get_tag() == som.get_tag():
                 self.set_fg(None)
+                self.set_tag(f"[None/{self.get_fd().get_tag()}]")
                 return self
 
         elif type(fg) == ArbreB:
@@ -49,6 +55,7 @@ class ArbreB:
         if type(fd) == Sommet:
             if fd.get_tag() == som.get_tag():
                 self.set_fd(None)
+                self.set_tag(f"[{self.get_fd().get_tag()}/None]")
                 return self
 
         elif type(fd) == ArbreB:
