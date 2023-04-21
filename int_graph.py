@@ -33,20 +33,21 @@ def draw_tree(arbre : ArbreB,x,y, ext):
     else:
         screen.create_text(x - deplacement , y + 100, text= fg_tag, fill= "red")
 
-def nbr_feuille(arbre: ArbreB):
-    """prend en entrée un arbre binaire et renvoie son nombre de feuille"""
+def hauteur(arbre: ArbreB):
+    """prend en entrée un arbre binaire et renvoie sa hauteur"""
     if isinstance(arbre, Sommet):
-        return 1
+        return 0
     else:
-        return nbr_feuille(arbre.get_fd()) + nbr_feuille(arbre.get_fg())
+        return 1 +  max(hauteur(arbre.get_fd())) + hauteur(arbre.get_fg())
 
 def creation_screen(arbre : ArbreB ):
     """prend en entrée un arbre binaire et prépare l'écran pour l'affichage de l'arbre"""
     global screen, screen_width, screen_height
     for child in  frame.winfo_children():
        child.destroy()
-    et  = nbr_feuille(arbre)  
-    WIDTH, HEIGHT = 100*et, 100*et
+    offset  = hauteur(arbre) 
+    offset *= log2(offset)
+    WIDTH, HEIGHT = 100*offset, 100*offset
     screen = tk.Canvas(frame,  width= screen_width , height=  screen_height, bg= "white",
                         scrollregion=(-WIDTH*4,0,WIDTH*6,HEIGHT))
     screen.grid(column = 1, row = 0 )
@@ -56,12 +57,10 @@ def creation_screen(arbre : ArbreB ):
     vbar=tk.Scrollbar(frame,orient="vertical", command= screen.yview , width= 25)
     vbar.grid(row= 0, column=2, sticky="ns")
     screen.config( yscrollcommand= vbar.set, xscrollcommand= hbar.set)
-    draw_tree(arbre, WIDTH, 100, et )
+    draw_tree(arbre, WIDTH, 100, offset )
 
 def afficher_texte(arbre : ArbreB):
     """prend en entrée un texte et affiche son resultat codé ou décodé"""
-
-    # codecs.open(fichier +".txt","r", encoding="utf-8").read(), codecs.open(fichier +"c.txt","r", encoding="utf-8").read())
     global screen, screen_width, screen_height
     for child in  frame.winfo_children():
        child.destroy()
@@ -123,7 +122,5 @@ def spawn_tree():
     creation_arbre.bind("<Button-1>", lambda event: creation_screen(arbre))
     frame = tk.Frame(racine)
     frame.grid(column = 0, row = 2, columnspan = 2)
-   
-
     frame.mainloop()
     remove(fichier+"c.txt")
