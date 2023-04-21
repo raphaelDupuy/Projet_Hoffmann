@@ -20,7 +20,7 @@ def draw_tree(arbre : ArbreB,x,y, ext):
     fg_tag = fg.get_tag()
     fd = arbre.get_fd()
     fd_tag = fd.get_tag()
-    deplacement = 50*ext
+    deplacement = 100*ext
 
     screen.create_line((x,y+10),(x+ deplacement, y+90))
     screen.create_line((x,y+10),(x- deplacement, y+90))
@@ -38,7 +38,7 @@ def hauteur(arbre: ArbreB):
     if isinstance(arbre, Sommet):
         return 0
     else:
-        return 1 +  max(hauteur(arbre.get_fd())) + hauteur(arbre.get_fg())
+        return 1 +  max(hauteur(arbre.get_fd()) , hauteur(arbre.get_fg()))
 
 def creation_screen(arbre : ArbreB ):
     """prend en entrée un arbre binaire et prépare l'écran pour l'affichage de l'arbre"""
