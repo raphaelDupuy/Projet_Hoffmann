@@ -20,7 +20,7 @@ def draw_tree(arbre : ArbreB,x,y, ext):
     fg_tag = fg.get_tag()
     fd = arbre.get_fd()
     fd_tag = fd.get_tag()
-    deplacement = 100 *ext
+    deplacement = 50*ext
 
     screen.create_line((x,y+10),(x+ deplacement, y+90))
     screen.create_line((x,y+10),(x- deplacement, y+90))
@@ -33,27 +33,26 @@ def draw_tree(arbre : ArbreB,x,y, ext):
     else:
         screen.create_text(x - deplacement , y + 100, text= fg_tag, fill= "red")
 
-def hauteur(arbre: ArbreB):
-    """ prend en entrée un arbre binaire et renvoie la hauteur de l'arbre"""
+def nbr_feuille(arbre: ArbreB):
+    """ prend en entrée un arbre binaire et renvoie son nombre de feuille"""
     if isinstance(arbre, Sommet):
-        return 0
+        return 1
     else:
-        return 1 + max(hauteur(arbre.get_fd()),hauteur(arbre.get_fg()))
+        return nbr_feuille(arbre.get_fd()) + nbr_feuille(arbre.get_fg())
 
 def creation_screen(arbre : ArbreB ):
     """ prend en entrée un arbre binaire et prépare l'écran pour l'affichage de l'arbre"""
     global screen, screen_width, screen_height
     for child in  frame.winfo_children():
        child.destroy()
-    h  = hauteur(arbre) 
-    et = h * log2(h)
-    WIDTH, HEIGHT = 200*et, 200*et
+    et  = nbr_feuille(arbre)  
+    WIDTH, HEIGHT = 100*et, 100*et
     screen = tk.Canvas(frame,  width= screen_width , height=  screen_height, bg= "white",
                         scrollregion=(-WIDTH*4,0,WIDTH*6,HEIGHT))
     screen.grid(column = 1, row = 0 )
+
     hbar=tk.Scrollbar(frame,orient="horizontal", command= screen.xview, width= 25)
     hbar.grid(row= 5, column=1, sticky="we")
-
     vbar=tk.Scrollbar(frame,orient="vertical", command= screen.yview , width= 25)
     vbar.grid(row= 0, column=2, sticky="ns")
     screen.config( yscrollcommand= vbar.set, xscrollcommand= hbar.set)
@@ -78,14 +77,14 @@ def afficher_texte(arbre : ArbreB):
                                             ("all files", "*.*")))[:-4]
     
 
-    if askquestion("Question", "le texte selectionné est-il codé ?") =="no":
+    if askquestion("Question", "le texte selectionné est-il codé ?") == "no":
         result = codage(arbre, entree)
-        
-        texteentre = codecs.open(entree +".txt","r", encoding="utf-8").read()
+        texteentre = codecs.open(entree +".txt","r", encoding= "utf-8").read()
       
     else:
         result = decodage(arbre, entree)
-        texteentre = codecs.open(entree +".txt","r", encoding="utf-8").read()
+        texteentre = codecs.open(entree + ".txt","r", encoding= "utf-8").read()
+
     entre = tk.Text(frame, wrap="word", width= 100,font = ("Arial", 12))
     entre.grid(column = 0, row = 0)
     sortie = tk.Text(frame, wrap="word", width= 100, font= ("Arial", 12))
@@ -125,8 +124,7 @@ def spawn_tree():
     creation_arbre.bind("<Button-1>", lambda event: creation_screen(arbre))
     frame = tk.Frame(racine)
     frame.grid(column = 0, row = 2, columnspan = 2)
-    frame.columnconfigure(1, weight= 1)
-    frame.rowconfigure(1, weight= 1)
+   
 
     frame.mainloop()
     remove(fichier+"c.txt")
